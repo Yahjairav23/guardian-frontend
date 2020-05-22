@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Profile from '../Component/Profile.js'
+import { Card } from 'semantic-ui-react'
 
 class ProfilesContainer extends Component{
 
@@ -11,8 +12,10 @@ class ProfilesContainer extends Component{
 
         return(
             <div>
-                ProfilesContainer
-                {profile}
+                <h1>ProfilesContainer</h1>
+                <Card.Group centered itemsPerRow={3}>
+                    {profile}
+                </Card.Group>
             </div>
         )
     }
