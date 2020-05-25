@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 class Navbar extends Component{
 
     state = {}
-
+    
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name })
 
