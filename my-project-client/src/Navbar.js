@@ -77,12 +77,12 @@ class Navbar extends Component{
 
 
             <Menu.Item
-                name='login'
-                active={activeItem === 'login'}
+                name='sign-up'
+                active={activeItem === 'sign-up'}
                 onClick={this.handleItemClick}
             >
-                <Link to='/login'>
-                    Log In
+                <Link to='/sign-up'>
+                    Sign Up
                 </Link>
             </Menu.Item>
             </Menu>

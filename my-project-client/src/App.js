@@ -7,6 +7,7 @@ import UnhousedContainer from './Container/UnhousedContainer.js'
 import EventsContainer from './Container/EventsContainer.js'
 import GroupsContainer from './Container/GroupsContainer.js'
 import ProfilesContainer from './Container/ProfilesContainer.js'
+import SignUp from './Component/SignUp.js'
 import {Route, Switch} from 'react-router-dom';
 // import {Router} from 'react-router-dom'
 
@@ -55,7 +56,7 @@ class App extends Component{
   render(){
     return (
      
-      
+
       <div>
        <Navbar />
         <Switch>
@@ -64,6 +65,7 @@ class App extends Component{
           <Route exact path='/events' render={ () =>  <EventsContainer events={this.state.events} groups={this.state.groups}/>} />
           <Route exact path='/groups' render={ () =>  <GroupsContainer/>} />
           <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>} />
+          <Route exact path='/sign-up' render={ () =>  <SignUp users={this.state.users}/>} />
 
           <Route render={()=> <div>404 Not Found</div>} />
 
