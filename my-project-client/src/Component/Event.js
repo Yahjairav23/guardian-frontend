@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Image, Modal, ModalDescription } from 'semantic-ui-react'
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 
 const Event=(props)=>{
 
@@ -17,7 +17,7 @@ const Event=(props)=>{
                 <Image wrapped size='medium' src={props.event._def.extendedProps.image} />
                
                 <Modal.Description>
-                <Header><p>Hosted by: {group.name}</p></Header>
+                <Header>Hosted by: {group.name}</Header>
                     <p>{props.event._instance.range.end.toDateString()}</p>
                     <p>{props.event._def.extendedProps.address}</p>
                     <p>{props.event._def.extendedProps.city}, {props.event._def.extendedProps.state}</p>
@@ -26,7 +26,7 @@ const Event=(props)=>{
             </Modal.Content>
 
             <Modal.Actions>
-            <Button negative onClick={(event) => props.handleCloseButton(event)}>Close</Button>
+            <Button negative onClick={props.handleCloseButton}>Close</Button>
             <Button
               positive
               icon='checkmark'

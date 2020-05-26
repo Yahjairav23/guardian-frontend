@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
-import {Input, TextArea, Select, Dropdown } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
+import {Input, TextArea, Dropdown } from 'semantic-ui-react'
 import states from '../states.json'
+// import {Link} from 'react-router-dom';
+
 
 
 
@@ -12,14 +14,15 @@ class SignUp extends Component{
         this.state={
             states: states,
             newUser : {
-            name : '',
-            username : '',
-            city: '',
-            state: '',
-            bio: '',
-            email: '',
-            birthday:'',
-            age: ''
+                name : '',
+                username : '',
+                city: '',
+                state: '',
+                bio: '',
+                email: '',
+                birthday:'',
+                age: '',
+                image: ''
             }
         } 
     }
@@ -63,12 +66,16 @@ class SignUp extends Component{
 
 
     render(){
-        const newUser = this.state
         return(   
 
             <>
     
-                <Form onSubmit={()=>this.props.handleSignUp()}>
+                <Form onSubmit={(e)=>{
+                    e.preventDefault()
+                    this.props.handleSignUp(this.state.newUser)
+                    // return <Link to='/profiles/current-user' />
+                    }
+                }>
                     <Form.Group widths='equal'>
                     <Form.Field
                         id='form-input-control-full-name'
@@ -99,6 +106,7 @@ class SignUp extends Component{
                         />
                     
                         <Dropdown 
+                        id='form-input-control-error-state'
                         placeholder='State' 
                         search 
                         selection
@@ -115,8 +123,8 @@ class SignUp extends Component{
                     } />
 
                         <h3>Birthday</h3>
-                        <div class="ui calendar" id="example1">
-                        <div class="ui input left icon">
+                        <div className="ui calendar" id="example1">
+                        <div className="ui input left icon">
                             <input type="date" name='birthday' placeholder="Birthdate" onChange={(e)=>{
                                 this.handleBirthday(e)
                                 }
@@ -126,25 +134,39 @@ class SignUp extends Component{
 
 
                     <Form.Field
-                    id='form-textarea-control-bio'
-                    control={TextArea}
-                    label='Bio'
-                    placeholder='Tell us a bit about yourself...'
-                    name='bio'
-                    onChange={this.handleForm}
+                        id='form-textarea-control-bio'
+                        control={TextArea}
+                        label='Bio'
+                        placeholder='Tell us a bit about yourself...'
+                        name='bio'
+                        onChange={this.handleForm}
                     />
+
                     <Form.Field
-                    id='form-input-control-error-email'
-                    control={Input}
-                    label='Email'
-                    placeholder='janedoe@demo.com'
-                    // error={{
-                    //     content: 'Please enter a valid email address',
-                    //     pointing: 'below',
-                    // }}
-                    name='email'
-                    onChange={this.handleForm}
+                        id='form-input-control-error-email'
+                        control={Input}
+                        label='Email'
+                        placeholder='janedoe@demo.com'
+                        // error={{
+                        //     content: 'Please enter a valid email address',
+                        //     pointing: 'below',
+                        // }}
+                        name='email'
+                        onChange={this.handleForm}
                     />
+
+                    <Form.Field >
+                        <input
+                            id='form-input-control-image'
+                            type="file"
+                            accept="image/*"
+                            multiple={false}
+                            name="image"
+                            onChange={this.handleForm}
+                        />
+                    </Form.Field>
+                    
+
                     <Form.Field
                     id='form-button-control-public'
                     control={Button}

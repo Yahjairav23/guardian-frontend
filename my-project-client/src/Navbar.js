@@ -4,7 +4,14 @@ import {Link} from 'react-router-dom'
 
 class Navbar extends Component{
 
-    state = {}
+    constructor(){
+        super()
+        this.state = {
+            activeItem: null
+        }
+    }
+
+    // state = {}
     
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name })
@@ -13,13 +20,13 @@ class Navbar extends Component{
     }
 
     render(){
-        const { activeItem } = this.state
+        const activeItem = this.state.activeItem
 
         return(
             <Menu stackable>
                 
             <Menu.Item>
-              <img src='https://react.semantic-ui.com/logo.png' />
+              <img src='https://react.semantic-ui.com/logo.png' alt='logo' />
             </Menu.Item>
         
         {/* // */}
@@ -28,10 +35,10 @@ class Navbar extends Component{
               name='Home'
               active={activeItem === 'Home'}
               onClick={this.handleItemClick}
+              as={Link}
+              to='/'
             >
-                <Link to='/'>
                     Home
-                </Link>
 
             </Menu.Item>
 
@@ -41,11 +48,10 @@ class Navbar extends Component{
               name='events'
               active={activeItem === 'events'}
               onClick={this.handleItemClick}
+              as={Link}
+              to='/events'
             >
-
-                <Link to='events'>
                 Events
-                </Link>
             </Menu.Item>
     
         {/* // */}
@@ -54,10 +60,10 @@ class Navbar extends Component{
               name='groups'
               active={activeItem === 'groups'}
               onClick={this.handleItemClick}
+              as={Link}
+              to='/groups'
             >
-                <Link to='/groups'>
                     Groups
-                </Link>
             </Menu.Item>
 
         {/* // */}
@@ -66,10 +72,10 @@ class Navbar extends Component{
               name='profile'
               active={activeItem === 'profile'}
               onClick={this.handleItemClick}
+              as={Link}
+              to='/profiles'
             >
-                <Link to='/profiles'>
                 My Profile
-                </Link>
             </Menu.Item>
 
 
@@ -80,10 +86,10 @@ class Navbar extends Component{
                 name='sign-up'
                 active={activeItem === 'sign-up'}
                 onClick={this.handleItemClick}
+                as={Link}
+                to='/sign-up'
             >
-                <Link to='/sign-up'>
                     Sign Up
-                </Link>
             </Menu.Item>
             </Menu>
         )

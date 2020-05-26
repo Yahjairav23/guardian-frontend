@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
 import Event from '../Component/Event.js'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Modal } from 'semantic-ui-react'
 // import { Button, Popup } from 'semantic-ui-react'
 
 class EventsContainer extends Component{
@@ -19,7 +19,6 @@ class EventsContainer extends Component{
     handleClick=(e)=>{
         
         this.setState({
-            // showEvent : !this.state.showEvent,
             event : e.event,
             showEvent: !this.state.showEvent
         })
