@@ -24,7 +24,8 @@ class App extends Component{
         users : [],
         events: [],
         groups : [], 
-        currentUser: {}
+        currentUser: {}, 
+        filteredGroups : []
       }
     }
 
@@ -63,6 +64,17 @@ class App extends Component{
       })
     }
 
+    handleSearch=(e, search)=>{
+      if(search.length > 0){
+
+       const groups=this.state.groups.filter(group => group.name.toLowerCase().includes(search.toLowerCase()))
+        this.setState({
+          filteredGroups: groups
+        })
+
+      }
+    }
+
 
   render(){
     return (
@@ -74,7 +86,11 @@ class App extends Component{
           <Route exact path='/' render={()=> <LandingPage />} />
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
           <Route exact path='/events' render={ () =>  <EventsContainer events={this.state.events} groups={this.state.groups}/>} />
-          <Route exact path='/groups' render={ () =>  <GroupsContainer groups={this.state.groups}/>} />
+          <Route exact path='/groups' render={ () => {
+            return this.state.filteredGroups.length ?
+             <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} /> :
+            <GroupsContainer groups={this.state.groups} handleSearch={this.handleSearch} />
+          } }/>
           <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>} />
           <Route exact path='/sign-up' render={ () =>  <SignUp users={this.state.users} handleSignUp={this.handleSignUp}/>} />
           <Route exact path='/profiles/current-user' render={ () => <Profile users={this.state.currentUser}/> }/>

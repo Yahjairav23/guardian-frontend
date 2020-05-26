@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Group from '../Component/Group.js'
+import GroupSearch from '../Component/GroupSearch.js'
 
 class GroupsContainer extends Component{
 
@@ -10,9 +11,12 @@ class GroupsContainer extends Component{
         })
 
         return(
+            <>
+            <GroupSearch handleSearch={this.props.handleSearch}/>
             <div>
                 {group}
             </div>
+            </>
         )
     }
 }
