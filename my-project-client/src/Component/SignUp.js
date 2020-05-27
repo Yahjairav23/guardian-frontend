@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import {Input, TextArea, Dropdown } from 'semantic-ui-react'
 import states from '../states.json'
+import {withRouter} from 'react-router-dom';
+
 // import {Link} from 'react-router-dom';
 
 
@@ -22,7 +24,8 @@ class SignUp extends Component{
                 email: '',
                 birthday:'',
                 age: '',
-                image: ''
+                image: '',
+                password: ''
             }
         } 
     }
@@ -55,7 +58,7 @@ class SignUp extends Component{
           this.setState({
               newUser:  {...this.state.newUser,  age : age, [e.target.name] : e.target.value}
           }) 
-        
+    
      }
     
     handleStateForm=(e) => {
@@ -69,10 +72,12 @@ class SignUp extends Component{
         return(   
 
             <>
-    
+                {this.props.errorMessage ? this.props.handleError : null}
+
                 <Form onSubmit={(e)=>{
                     e.preventDefault()
                     this.props.handleSignUp(this.state.newUser)
+                    // return <Redirect to='/profiles/current-user' />
                     // return <Link to='/profiles/current-user' />
                     }
                 }>
@@ -91,6 +96,16 @@ class SignUp extends Component{
                         label='Username'
                         placeholder='Username'
                         name='username'
+                        onChange={this.handleForm}
+                    />
+
+                    <Form.Field
+                        id='form-input-control-password'
+                        control={Input}
+                        label='Password'
+                        placeholder='Password'
+                        name='password'
+                        input='password'
                         onChange={this.handleForm}
                     />
                     
@@ -179,4 +194,4 @@ class SignUp extends Component{
 }
 
 
-export default SignUp
+export default withRouter(SignUp)
