@@ -19,6 +19,9 @@ import { Message } from 'semantic-ui-react'
 const USERS = 'http://localhost:3000/api/v1/users'
 const EVENTS = 'http://localhost:3000/events'
 const GROUPS = 'http://localhost:3000/groups'
+const USEREVENTS = 'http://localhost:3000/user_events'
+const USERGROUPS = 'http://localhost:3000/user_groups'
+
 
 class App extends Component{
 
@@ -27,8 +30,9 @@ class App extends Component{
       this.state={
         users : [],
         events: [],
-        groups : [], 
-        currentUser: null, //logged in user 
+        groups : [],
+        currentUser: null, //logged in user
+        userEvents: [], 
         filteredGroups : [], 
         errorMessage : null
       }
@@ -46,6 +50,7 @@ class App extends Component{
       fetch(EVENTS)
       .then(resp => resp.json())
       .then(eventsArr => {this.setState({events: eventsArr})})
+
     }
 
     handleSignUp = (userInfo) => {
@@ -93,11 +98,38 @@ class App extends Component{
         if (loggedUser.error){
           this.setState({errorMessage: loggedUser.error})
         }else{
-          this.setState({currentUser: loggedUser})
+          this.setState({
+            currentUser: loggedUser,
+            userEvents: loggedUser.events
+          })
         }
       })
     }
 
+    handleRSVP = (eventId) => {
+
+      let obj = {
+        event_id: eventId,
+        user_id: this.state.currentUser.id
+      }
+
+      fetch(USEREVENTS, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj)
+      })
+      .then(resp => resp.json())
+      .then(userEvent => {
+        // console.log(userEvent)
+        this.setState({
+          userEvent: [...this.state.userEvents, userEvent.event]
+        })
+        
+      })
+      
+    }
 
 
     handleSearch=(e, search)=>{
@@ -111,7 +143,15 @@ class App extends Component{
       }
     }
 
+    handleLogout = () => {
+      this.setState({currentUser: null})
+    }
 
+    updateUserEvents = (events) => {
+      this.setState({userEvents: events})
+    }
+
+  
 
 
   render(){
@@ -119,20 +159,20 @@ class App extends Component{
      
 
       <>
-       <Navbar />
+       <Navbar currentUser={this.state.currentUser} logout={this.handleLogout} />
         <Switch>
           {/* {this.state.currentUser ? <Redirect to='/profiles/current-user' /> : null } */}
             
-          <Route exact path='/profiles/current-user' render={ () => this.state.currentUser ? <UserProfile user={this.state.currentUser}/> : <Redirect to="/login"/> }/> 
+          <Route exact path='/profiles/current-user' render={ () => this.state.currentUser ? <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> }/> 
           <Route exact path='/' render={()=> <LandingPage />} />
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
-          <Route exact path='/events' render={ () =>  <EventsContainer events={this.state.events} groups={this.state.groups}/>} />
+          <Route exact path='/events' render={ () =>  (this.state.currentUser == null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
           <Route exact path='/groups' render={ () => {
             return this.state.filteredGroups.length ?
              <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} /> :
             <GroupsContainer groups={this.state.groups} handleSearch={this.handleSearch} />
           } }/>
-          <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>} />
+          <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>}  />
           <Route exact path='/sign-up' render={ () =>  (this.state.currentUser == null ? <SignUp users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError}  handleSignUp={this.handleSignUp}/> : <Redirect to='/profiles/current-user' /> )} /> 
           <Route exact path='/login' render={ () =>  (this.state.currentUser == null ? <Login users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError} handleLogin={this.handleLogin}/> : <Redirect to='/profiles/current-user' /> )} /> 
 

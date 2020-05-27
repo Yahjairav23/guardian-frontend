@@ -6,7 +6,6 @@ const Event=(props)=>{
     const group = props.groups.find(group => {
       return  group.id === props.event._def.extendedProps.group_id
     })
-
     return(
         
         
@@ -28,6 +27,12 @@ const Event=(props)=>{
             <Modal.Actions>
             <Button negative onClick={props.handleCloseButton}>Close</Button>
             <Button
+              onClick={()=>{
+                
+                // props.updateUserEvents(props.event)
+                props.handleRSVP(props.event._def.extendedProps.event_id)
+                props.handleClose()
+              }}
               positive
               icon='checkmark'
               labelPosition='right'

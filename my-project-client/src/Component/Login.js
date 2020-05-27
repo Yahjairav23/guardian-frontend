@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Button, Form } from 'semantic-ui-react'
-import {Input, TextArea, Dropdown } from 'semantic-ui-react'
-import states from '../states.json'
+import { Input } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom';
 
 
