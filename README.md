@@ -31,7 +31,7 @@
       <div>
             
 ________________________________________________________________________________________________________
-Made for use with [guardian_backend](git@github.com:deijdev/guardian-backend.git)
+Made for use with [guardian_backend](https://github.com/deijdev/guardian-backend.git)
 
 To get your server started on http:localhost:3000, run :
 
