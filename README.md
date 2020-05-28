@@ -21,8 +21,8 @@
             <p>'Log In' using:</p>
             <br></br>
             <ul>
-             <li>username:demo  </li>
-             <li>password:demo</li>
+             <li>username: demo  </li>
+             <li>password: demo</li>
             </ul>
 </br>
            <h5>This app was created with Ruby on Rails, React, and Javascript</h5> 
