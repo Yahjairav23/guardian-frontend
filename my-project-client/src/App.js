@@ -11,8 +11,9 @@ import UserProfile from './Component/UserProfile.js'
 import SignUp from './Component/SignUp.js'
 import Login from './Component/Login.js'
 import GroupShow from './Component/GroupShow.js'
+import EventShow from './Component/EventShow.js'
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
-import { Message } from 'semantic-ui-react'
+import { Message} from 'semantic-ui-react'
 // import {Router} from 'react-router-dom'
 
 // const USERS = 'http://localhost:3000/users'
@@ -31,6 +32,7 @@ class App extends Component{
         users : [],
         events: [],
         groups : [],
+        userGroups: [],
         currentUser: null, //logged in user
         userEvents: [], 
         filteredGroups : [], 
@@ -50,6 +52,10 @@ class App extends Component{
       fetch(EVENTS)
       .then(resp => resp.json())
       .then(eventsArr => {this.setState({events: eventsArr})})
+
+      fetch(USERGROUPS)
+      .then(resp => resp.json())
+      .then(userGroup => {this.setState({userGroups: [...this.state.userGroups, userGroup]})})
 
     }
 
@@ -128,6 +134,7 @@ class App extends Component{
         })
         
       })
+     
       
     }
 
@@ -151,7 +158,21 @@ class App extends Component{
       this.setState({userEvents: events})
     }
 
-  
+    handleJoinGroup=(user_group)=>{
+   
+      fetch(USERGROUPS, {
+        method: 'POST', 
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(user_group)
+      })
+      .then(resp => resp.json())
+      .then(user_groupObj=>{
+        this.setState({
+          userGroups : [...this.state.userGroups, user_groupObj],
+          
+        })
+      })
+    }
 
 
   render(){
@@ -169,7 +190,7 @@ class App extends Component{
           <Route exact path='/events' render={ () =>  (this.state.currentUser == null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
           <Route exact path='/groups' render={ () => {
             return this.state.filteredGroups.length ?
-             <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} /> :
+            <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} />:
             <GroupsContainer groups={this.state.groups} handleSearch={this.handleSearch} />
           } }/>
           <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>}  />
@@ -181,7 +202,15 @@ class App extends Component{
             const id = routerProps.match.params.id 
             const group = this.state.groups.find(group => group.id === parseInt(id))
             const founder = this.state.users.find(user => user.id == group.creator_id)
-            return  this.state.groups.length && this.state.users.length ? <GroupShow group={group} events={this.state.events} groups={this.state.groups} founder={founder}/> : null
+            return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder}/> : null
+            } 
+          }/>
+
+          <Route exact path='/events/:id' render={ (routerProps) => {
+            const id = routerProps.match.params.id 
+            const event = this.state.events.find(event => event.id === parseInt(id))
+            const group = this.state.groups.find(group => group.id === parseInt(id))
+            return  this.state.groups.length && this.state.events.length ? <EventShow event={event} groups={this.state.groups} handleRSVP={this.handleRSVP} /> : null
             } 
           }/>
 

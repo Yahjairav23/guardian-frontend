@@ -3,7 +3,9 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
 import Event from '../Component/Event.js'
-import { Modal, Grid } from 'semantic-ui-react'
+import { Modal, Grid, List } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+
 // import { Button, Popup } from 'semantic-ui-react'
 
 class EventsContainer extends Component{
@@ -34,8 +36,7 @@ class EventsContainer extends Component{
             event : e.event,
             showEvent: !this.state.showEvent
         })
-        this.props.updateUserEvents(this.state.userEvents)
-    
+        // this.props.updateUserEvents(this.state.userEvents
     
     }
     
@@ -53,7 +54,6 @@ class EventsContainer extends Component{
 //
 
     render(){
-       
         
         const eventsArr = this.props.events.map(event => {
             return {title: event.title, date: event.event_date, description: event.description, address: event.street_address, image: event.image, city: event.city, state: event.state, group_id: event.group_id, event_id:event.id}
@@ -71,7 +71,7 @@ class EventsContainer extends Component{
                     
                     {this.state.event ?    
                     <Modal open={this.state.showEvent} centered={true}>  
-                    <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} updateUserEvents={this.updateUserEvents} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
+                    <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
                     </Modal> 
                     :
                     false
@@ -80,10 +80,12 @@ class EventsContainer extends Component{
 
                 <Grid.Column width={4}>
                     <h1>My Upcoming Events</h1>
+                    <List>
                     {this.props.user.events.map(event => {
-                        return <p>{event.title}</p>
+                        return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
                     })
                     }
+                    </List>
                 </Grid.Column>
             </Grid>
             </div>

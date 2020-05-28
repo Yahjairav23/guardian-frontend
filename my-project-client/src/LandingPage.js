@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Header, Button, Icon, Modal, Image} from 'semantic-ui-react'
+import { Container, Header, Button, Icon, Modal, Image, Grid} from 'semantic-ui-react'
 import About from './Component/About.js'
 
 class LandingPage extends Component{
@@ -26,39 +26,36 @@ class LandingPage extends Component{
 
 render(){
     return(
-        <div className='landing-page'>
-        <Container text>
-          {/* <Image src='https://react.semantic-ui.com/images/wireframe/image.png' fluid /> */}
+      
+        <div className='landing-page' >
+
+        <Container text position='center'>
+  
         <Header
+          position='center'
           as='h1'
           content='Guardian'
-        //   inverted
+        
           style={{
             fontSize: '4em',
-            // mobile ? '2em' :
             fontWeight: 'normal',
             marginBottom: 0,
             marginTop: '3em'
-            // mobile ? '1.5em' : 
           }}
         />
         <Header
+        position='center'
           as='h2'
           content='Lend A Helping Hand.'
-        //   inverted
           style={{
             fontSize:  '1.7em',
-            
-            // mobile ? '1.5em' :
             fontWeight: 'normal',
             marginTop:  '1.5em'
-            // mobile ? '0.5em' :
           }}
         />
         <br></br>
-        <Button primary size='huge' onClick={this.handleModal}>
+        <Button primary size='huge' position='centered' onClick={this.handleModal}>
           Learn More
-          {/* <Icon name='add' /> */}
         </Button>
 
           {this.state.showModal ? 
@@ -68,9 +65,10 @@ render(){
             :
             false
           }
-
+    
       </Container>
       </div>
+
     )
 }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import EventContainer from '../Container/EventsContainer.js'
-import { Grid, Image} from 'semantic-ui-react'
+import { Grid, Image, Button, Modal, Header, Icon} from 'semantic-ui-react'
 // import { render } from 'react-dom'
 
 
@@ -10,26 +10,43 @@ class GroupShow extends Component {
         super()
         this.state ={
             members: [],
+            user_group:{
+            member_id: 0,
+            group_id: 0
+            },
+            joinedModal: false
         }
     }
 
+    handlCloseJoinedModal=()=>{
+        this.setState({
+          joinedModal : false
+        })
+      }
+
+      handleState=()=>{
+          this.setState({
+            joinedModal : !this.state.joinedModal
+          })
+        }
+
     componentDidMount =() => {
-        fetch(`http://localhost:3000/user_groups/group/${this.props.group.id}`)
+        fetch(`http://localhost:3000/groups/${this.props.group.id}`)
         .then(resp => resp.json())
         .then(data => {
-           
-            this.setState({members: data})
+           const members = data.user_groups.map( ug => ug.member)
+            this.setState({members: members,
+                            user_group: { 
+                            member_id: this.props.user.id,
+                            group_id: this.props.group.id
+                        }
+            })
         })
-            
     }
 
-    // findFounder = () => {
-    //     let founder = this.state.members.find(member => member.id === this.props.group.creator_id)
-    //     this.setState({founder: founder})
-    // }
-    
-    
+
     render(){
+       
         const group = this.props.group
         
         const groupEvents = this.props.events.filter( event => event.group_id == group.id)
@@ -65,7 +82,34 @@ class GroupShow extends Component {
                 </Grid.Column>
 
             <Grid.Column width={10}>
-                <EventContainer events={groupEvents} groups={this.props.groups}/>
+                <EventContainer events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
+                
+                <Button onClick={this.handleState}>
+                    Join Group
+                </Button>
+             
+                <Modal >
+                {this.state.joinedModal ?
+            
+                    <>
+                      <Header content='Thank you for Joining!' />
+                        <Modal.Content>
+                        <p>
+                            You have joined {this.props.group.name}
+                        </p>
+                        </Modal.Content>
+                        <Modal.Actions>
+                    
+                        <Button color='green' inverted onClick={this.handleCloseJoinedModal}>
+                            <Icon name='checkmark' /> Got It!
+                        </Button>
+                        </Modal.Actions>
+                </>
+                :
+                null
+                }
+                </Modal>
+
             </Grid.Column>
 
         </Grid>

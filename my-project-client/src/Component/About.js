@@ -6,7 +6,7 @@ const About=(props)=>{
         <>
         <Modal.Header>Welcome to Guardian</Modal.Header>
         <Modal.Content image>
-          <Image wrapped size='medium' src='https://i.imgur.com/lGI9a7U.png' />
+          <Image wrapped size='medium' src='https://i.imgur.com/oIajXtc.png' circular/>
           <Modal.Description size='large'>
             {/* <Header>Welcome to Guardian</Header> */}
            

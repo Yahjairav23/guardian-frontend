@@ -4,7 +4,10 @@ import { Button, Header, Image, Modal } from 'semantic-ui-react'
 const Event=(props)=>{
 
     const group = props.groups.find(group => {
+      
       return  group.id === props.event._def.extendedProps.group_id
+      // return  group.id === props.event.group_id
+
     })
     return(
         

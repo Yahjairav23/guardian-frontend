@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Form } from 'semantic-ui-react'
-import { Input } from 'semantic-ui-react'
+import { Input, Grid, Form, Header, Segment, Message, Button, Image } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom';
 
 
@@ -22,40 +21,49 @@ class Login extends Component {
 
     render(){
         return (
-            <div>
-                {this.props.errorMessage ? this.props.handleError() : null}
-                <Form onSubmit={ (e) => {
+            <>
+           
+            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='teal' textAlign='center'>
+                <Image src='https://i.imgur.com/oIajXtc.png' circular/> Log-in to your account
+            </Header>
+            {this.props.errorMessage ? this.props.handleError() : null}
+                <Form size='large'onSubmit={ (e) => {
                     e.preventDefault()
                     this.props.handleLogin(this.state)
                 }}>
-                    <Form.Group widths='equal'>
-                        <Form.Field
-                            id='form-input-control-username'
-                            control={Input}
-                            label='Username'
-                            placeholder='Username'
-                            name='username'
-                            onChange={this.handleForm}
-                        />
+                <Segment stacked>
+                <Form.Input
+                  id='form-input-control-username'
+                  control={Input}
+                  label='Username'
+                  placeholder='Username'
+                  name='username'
+                  onChange={this.handleForm} 
+                 />
+                <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    label='Password'
+                    placeholder='Password'
+                    name='password'
+                    input='password'
+                    onChange={this.handleForm}
+                />
 
-                        <Form.Field
-                            id='form-input-control-password'
-                            control={Input}
-                            label='Password'
-                            placeholder='Password'
-                            name='password'
-                            input='password'
-                            onChange={this.handleForm}
-                        />
-
-                        <Form.Field
-                        id='form-button-control-public'
-                        control={Button}
-                        content='Confirm'
-                        />
-                    </Form.Group>
-                </Form>
-            </div>
+                <Button color='teal' fluid size='large'>
+                    Login
+                </Button>
+                </Segment>
+            </Form>
+            <Message>
+                New to us? <a href='/sign-up'>Sign Up</a>
+            </Message>
+            </Grid.Column>
+            </Grid>
+            </>
         )
     }
 }

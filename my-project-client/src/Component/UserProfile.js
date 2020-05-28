@@ -1,10 +1,10 @@
 import React from 'react'
-import { Image, Grid } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import { List, Image, Grid } from 'semantic-ui-react'
 
 class UserProfile extends React.Component {
     
     render(){
-    //    debugger
         return(
             
         <>
@@ -23,17 +23,22 @@ class UserProfile extends React.Component {
             </Grid.Column>
 
             <Grid.Column width={4}>
-                <h1>My Events</h1>
-                {this.props.user.events.map(event => {
-                    return <p>{event.title}</p>
-                })
-                }
-                <h1>My Groups</h1>
-        
-                {this.props.user.member_user_groups.map(group => {
-                    return <p>{group.group.name}</p>
-                })
-                }
+                
+                    <h1>My Events</h1>
+                    <List>
+                        {this.props.user.events.map(event => {
+                            return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
+                        })
+                        }
+                    </List>
+             
+                    <h1>My Groups</h1>
+                    <List>
+                        {this.props.user.member_user_groups.map(group => {
+                            return <List.Item as={Link} to={`/groups/${group.id}`}>{group.group.name}</List.Item>
+                        })
+                        }
+                    </List>
 
 
             

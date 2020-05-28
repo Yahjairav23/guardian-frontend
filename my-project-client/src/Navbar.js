@@ -81,17 +81,19 @@ class Navbar extends Component{
 
         {/* // */}
             {this.props.currentuser ?
+            <Menu.Menu position='right'>
                  <Menu.Item
-                 name='login'
-                 active={activeItem === 'login'}
-                 onClick={this.handleItemClick}
-                 as={Link}
-                 to='/login'
-             >
-                     Logout
-             </Menu.Item>
+                    name='login'
+                    active={activeItem === 'login'}
+                    onClick={this.handleItemClick}
+                    as={Link}
+                    to='/login'
+                >
+                        Logout
+                </Menu.Item>
+            </Menu.Menu>
                 :
-
+            <Menu.Menu position='right'>
                 <Menu.Item
                     name='login'
                     active={activeItem === 'login'}
@@ -101,8 +103,8 @@ class Navbar extends Component{
                 >
                         Login
                 </Menu.Item>
-            }
-            <Menu.Item
+            
+                <Menu.Item
                     name='sign-up'
                     active={activeItem === 'sign-up'}
                     onClick={this.handleItemClick}
@@ -111,6 +113,8 @@ class Navbar extends Component{
                 >
                         Sign Up
                 </Menu.Item>
+            </Menu.Menu>
+            }
             </Menu>
         )
     }
