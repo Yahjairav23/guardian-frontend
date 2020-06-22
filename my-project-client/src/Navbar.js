@@ -80,12 +80,15 @@ class Navbar extends Component{
 
 
         {/* // */}
-            {this.props.currentuser ?
+            {this.props.currentUser ?
             <Menu.Menu position='right'>
                  <Menu.Item
-                    name='login'
-                    active={activeItem === 'login'}
-                    onClick={this.handleItemClick}
+                    name='logout'
+                    active={activeItem === 'logout'}
+                    onClick={(e)=>{
+                        this.handleItemClick(e)
+                        this.props.logout()
+                    }}
                     as={Link}
                     to='/login'
                 >

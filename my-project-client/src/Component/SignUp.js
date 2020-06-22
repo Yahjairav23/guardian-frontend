@@ -69,6 +69,7 @@ class SignUp extends Component{
 
 
     render(){
+        debugger
         return(   
 
             <>

@@ -57,6 +57,18 @@ class App extends Component{
       .then(resp => resp.json())
       .then(userGroup => {this.setState({userGroups: [...this.state.userGroups, userGroup]})})
 
+      
+      if(localStorage.getItem("token")){
+        fetch('http://localhost:3000/api/v1/decode_token', {
+          headers : {"Authenticate": localStorage.token,
+          'Content-Type': 'application/json'}
+        })
+        .then(resp => resp.json())
+        .then(userData => {
+          this.setState({currentUser : userData})
+        })
+      }
+
     }
 
     handleSignUp = (userInfo) => {
@@ -89,28 +101,60 @@ class App extends Component{
       </Message>
     )
     }
-    
+   
+    ///Login
+
     handleLogin = (userInfo) => {
+
+      const user = this.state.users.find(userObj => userObj.username === userInfo.username)
+     
+
+      const userObj = {
+        username: userInfo.username,
+        password: userInfo.password,
+        id: userInfo.id,
+        name: user.name,
+        bio: user.bio,
+        image: user.image,
+        city: user.city,
+        state: user.state,
+        age: user.age,
+        email: user.email,
+        birthday: user.birthday,
+        groups: user.member_user_groups,
+        events: user.events 
+      }
+
       fetch('http://localhost:3000/api/v1/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // "Accept" : "application.json"
+          "Authenticate": localStorage.token
         },
-        body: JSON.stringify(userInfo)
+        body: JSON.stringify(userObj)
       })
       .then(resp => resp.json())
       .then(loggedUser => {
         if (loggedUser.error){
           this.setState({errorMessage: loggedUser.error})
         }else{
+          localStorage.setItem("token", loggedUser.token)
           this.setState({
-            currentUser: loggedUser,
-            userEvents: loggedUser.events
+            currentUser: loggedUser.user_data.user,
+            userEvents: loggedUser.user_data.events
           })
         }
       })
     }
+  
+
+
+    handleLogout = () => {
+      localStorage.clear()
+      this.setState({currentUser: null})
+    }
+
+    ///
 
     handleRSVP = (eventId) => {
 
@@ -150,10 +194,6 @@ class App extends Component{
       }
     }
 
-    handleLogout = () => {
-      this.setState({currentUser: null})
-    }
-
     updateUserEvents = (events) => {
       this.setState({userEvents: events})
     }
@@ -176,6 +216,7 @@ class App extends Component{
 
 
   render(){
+  
     return (
      
 
@@ -184,7 +225,7 @@ class App extends Component{
         <Switch>
           {/* {this.state.currentUser ? <Redirect to='/profiles/current-user' /> : null } */}
             
-          <Route exact path='/profiles/current-user' render={ () => this.state.currentUser ? <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> }/> 
+          <Route exact path='/profiles/current-user' render={ () => this.state.currentUser != null ? <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> }/> 
           <Route exact path='/' render={()=> <LandingPage />} />
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
           <Route exact path='/events' render={ () =>  (this.state.currentUser == null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />

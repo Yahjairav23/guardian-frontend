@@ -5,6 +5,9 @@ import { List, Image, Grid } from 'semantic-ui-react'
 class UserProfile extends React.Component {
     
     render(){
+        
+        if(this.props.user){
+            // debugger
         return(
             
         <>
@@ -46,6 +49,9 @@ class UserProfile extends React.Component {
         </Grid>
         </>
         )
+        }else{
+            return null
+        }
     }
 }
 
