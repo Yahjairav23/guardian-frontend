@@ -72,11 +72,14 @@ class App extends Component{
     }
 
     handleSignUp = (userInfo) => {
-    
-      fetch(USERS, {
+    //  debugger
+      localStorage.removeItem('token')
+      
+      fetch('http://localhost:3000/api/v1/sign-up', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authenticate": localStorage.token,
         },
         body: JSON.stringify(userInfo)
       })
@@ -85,13 +88,14 @@ class App extends Component{
         if (newUser.error){
           this.setState({errorMessage: newUser.error})
         }else{
+          localStorage.setItem("token", newUser.token)
           this.setState({
             users: [...this.state.users, newUser],
-            currentUser: newUser})
-          // return <Redirect to='/profiles/current-user' />
+            currentUser: newUser.user_data.user})
         }
       })
     }
+
 
     handleError=()=>{
     return (
@@ -141,7 +145,7 @@ class App extends Component{
           localStorage.setItem("token", loggedUser.token)
           this.setState({
             currentUser: loggedUser.user_data.user,
-            userEvents: loggedUser.user_data.events
+            userEvents: loggedUser.user_data.user.events
           })
         }
       })
@@ -228,21 +232,21 @@ class App extends Component{
           <Route exact path='/profiles/current-user' render={ () => this.state.currentUser != null ? <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> }/> 
           <Route exact path='/' render={()=> <LandingPage />} />
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
-          <Route exact path='/events' render={ () =>  (this.state.currentUser == null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
+          <Route exact path='/events' render={ () =>  (this.state.currentUser === null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
           <Route exact path='/groups' render={ () => {
             return this.state.filteredGroups.length ?
             <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} />:
             <GroupsContainer groups={this.state.groups} handleSearch={this.handleSearch} />
           } }/>
           <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>}  />
-          <Route exact path='/sign-up' render={ () =>  (this.state.currentUser == null ? <SignUp users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError}  handleSignUp={this.handleSignUp}/> : <Redirect to='/profiles/current-user' /> )} /> 
-          <Route exact path='/login' render={ () =>  (this.state.currentUser == null ? <Login users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError} handleLogin={this.handleLogin}/> : <Redirect to='/profiles/current-user' /> )} /> 
+          <Route exact path='/sign-up' render={ () =>  (this.state.currentUser === null ? <SignUp users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError}  handleSignUp={this.handleSignUp}/> : <Redirect to='/profiles/current-user' /> )} /> 
+          <Route exact path='/login' render={ () =>  (this.state.currentUser === null ? <Login users={this.state.users} errorMessage={this.state.errorMessage} handleError={this.handleError} handleLogin={this.handleLogin}/> : <Redirect to='/profiles/current-user' /> )} /> 
 
          
           <Route exact path='/groups/:id' render={ (routerProps) => {
             const id = routerProps.match.params.id 
             const group = this.state.groups.find(group => group.id === parseInt(id))
-            const founder = this.state.users.find(user => user.id == group.creator_id)
+            const founder = this.state.users.find(user => user.id === group.creator_id)
             return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder}/> : null
             } 
           }/>

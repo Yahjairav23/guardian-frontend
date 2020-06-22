@@ -79,13 +79,18 @@ class EventsContainer extends Component{
                 </Grid.Column>
 
                 <Grid.Column width={4}>
+                    
                     <h1>My Upcoming Events</h1>
-                    <List>
-                    {this.props.user.events.map(event => {
-                        return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
-                    })
+                    {this.props.user.events.length > 0 ?
+                        <List>
+                        {this.props.user.events.map(event => {
+                            return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
+                        })
+                        }
+                        </List>
+                    :
+                    <p>You Do Not Have Any Upcoming Events.</p>
                     }
-                    </List>
                 </Grid.Column>
             </Grid>
             </div>

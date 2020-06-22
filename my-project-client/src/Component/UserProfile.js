@@ -26,22 +26,29 @@ class UserProfile extends React.Component {
             </Grid.Column>
 
             <Grid.Column width={4}>
-                
                     <h1>My Events</h1>
+                    {this.props.user.events.length > 0  ?
                     <List>
                         {this.props.user.events.map(event => {
                             return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
                         })
                         }
                     </List>
+                    :
+                    <p>You Don't Have Any Upcoming Events.</p>
+                    }
              
                     <h1>My Groups</h1>
+                    {this.props.user.member_user_groups.length > 0 ?
                     <List>
                         {this.props.user.member_user_groups.map(group => {
                             return <List.Item as={Link} to={`/groups/${group.id}`}>{group.group.name}</List.Item>
                         })
                         }
                     </List>
+                    :
+                    <p>You Are Not A Part Of Any Groups Yet.</p>
+                    }
 
 
             
