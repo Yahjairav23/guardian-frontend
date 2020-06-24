@@ -191,17 +191,27 @@ if(user){
         })
   }
 
-
-    handleSearch=(e, search)=>{
+//search//
+    handleSearch=(e)=>{
+      console.log(e.target.value)
+      const search = e.target.value
       if(search.length > 0){
 
        const groups=this.state.groups.filter(group => group.name.toLowerCase().includes(search.toLowerCase()))
+
         this.setState({
           filteredGroups: groups
         })
 
+      }else{
+        this.setState({
+          filteredGroups: this.state.groups
+        })
+
       }
     }
+
+  //
 
     updateUserEvents = (events) => {
       this.setState({userEvents: events})

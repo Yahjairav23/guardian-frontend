@@ -23,19 +23,11 @@ class GroupSearch extends Component{
             <>
             <Grid.Column width={6}>
             <Search
-            //   loading={isLoading}
-            //   onResultSelect={this.handleResultSelect}
-            //   onSearchChange={_.debounce(this.handleSearchChange, 500, {
-            //     leading: true,
-            //   })}
-            //   results={results}
-            //   value={value}
-            //   {...this.props}
             placeholder='Search...'
             value={this.state.search}
             onSearchChange={(e)=>{
                 this.changeSearch(e)
-                this.props.handleSearch(e, this.state.search)
+                this.props.handleSearch(e)
                 
             }}
             />

@@ -4,8 +4,7 @@ import { Card, Icon, Image, Grid} from 'semantic-ui-react'
 
 const Group=(props)=>{
 
-    return(
-       
+    return(        
        <Card.Group centered itemsPerRow={3}>
             <Card as={Link} to={`/groups/${props.group.id}`}>
                 <Image src={props.group.image} wrapped ui={false} />
@@ -29,11 +28,8 @@ const Group=(props)=>{
             </Card>
          
         </Card.Group>
-    
-
-
+        
     )
-
 }
 
 export default Group
