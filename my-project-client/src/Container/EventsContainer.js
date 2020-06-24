@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import Event from '../Component/Event.js'
 import { Modal, Grid, List } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-
+// const USEREVENTS = 'http://localhost:3000/user_events'
 // import { Button, Popup } from 'semantic-ui-react'
 
 class EventsContainer extends Component{
@@ -15,16 +15,18 @@ class EventsContainer extends Component{
         this.state={
             event: null,
             showEvent: false, 
-            userEvents: []
+            // userEvents: []
         }
     } 
 
-    componentDidMount(){
+    // componentDidMount(){
     
-        this.setState({
-            userEvents: this.props.user.events
-        })
-    }
+    //     this.setState({
+    //         userEvents: this.props.user.events
+    //     })
+    // }
+
+ 
 
     handleClose = () => {
         this.closeModal()
@@ -58,6 +60,7 @@ class EventsContainer extends Component{
         const eventsArr = this.props.events.map(event => {
             return {title: event.title, date: event.event_date, description: event.description, address: event.street_address, image: event.image, city: event.city, state: event.state, group_id: event.group_id, event_id:event.id}
         }) 
+        
         return(
             <div>
                 <Grid>
@@ -79,15 +82,14 @@ class EventsContainer extends Component{
                 </Grid.Column>
 
                 <Grid.Column width={4}>
-                    
-                    <h1>My Upcoming Events</h1>
-                    {this.props.user.events.length > 0 ?
-                        <List>
-                        {this.props.user.events.map(event => {
-                            return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
-                        })
-                        }
-                        </List>
+                        <h1>My Upcoming Events</h1>
+                        {this.props.userEvents.length > 0 ?
+                            <List>
+                            {this.props.userEvents.map(event => {
+                                return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
+                            })
+                            }
+                            </List>
                     :
                     <p>You Do Not Have Any Upcoming Events.</p>
                     }

@@ -7,7 +7,7 @@ class UserProfile extends React.Component {
     render(){
         
         if(this.props.user){
-            // debugger
+        //   debugger
         return(
             
         <>
@@ -27,9 +27,9 @@ class UserProfile extends React.Component {
 
             <Grid.Column width={4}>
                     <h1>My Events</h1>
-                    {this.props.user.events.length > 0  ?
+                    {this.props.userEvents.length > 0  ?
                     <List>
-                        {this.props.user.events.map(event => {
+                        {this.props.userEvents.map(event => {
                             return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
                         })
                         }

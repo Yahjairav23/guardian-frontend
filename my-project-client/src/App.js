@@ -65,17 +65,21 @@ class App extends Component{
         })
         .then(resp => resp.json())
         .then(userData => {
-          this.setState({currentUser : userData})
+          this.setState({
+            currentUser : userData, 
+            userEvents: userData.events
+          })
         })
       }
 
     }
 
     handleSignUp = (userInfo) => {
-    //  debugger
+     
       localStorage.removeItem('token')
+
       
-      fetch('http://localhost:3000/api/v1/sign-up', {
+      fetch('http://localhost:3000/api/v1/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,8 +115,8 @@ class App extends Component{
     handleLogin = (userInfo) => {
 
       const user = this.state.users.find(userObj => userObj.username === userInfo.username)
-     
-
+      
+if(user){
       const userObj = {
         username: userInfo.username,
         password: userInfo.password,
@@ -125,7 +129,7 @@ class App extends Component{
         age: user.age,
         email: user.email,
         birthday: user.birthday,
-        groups: user.member_user_groups,
+        member_user_groups: user.member_user_groups,
         events: user.events 
       }
 
@@ -150,6 +154,7 @@ class App extends Component{
         }
       })
     }
+    }
   
 
 
@@ -160,31 +165,31 @@ class App extends Component{
 
     ///
 
-    handleRSVP = (eventId) => {
+    handleRSVP = (event) => {
+      // this.props.handleRSVP
 
       let obj = {
-        event_id: eventId,
-        user_id: this.state.currentUser.id
-      }
-
-      fetch(USEREVENTS, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(obj)
-      })
-      .then(resp => resp.json())
-      .then(userEvent => {
-        // console.log(userEvent)
-        this.setState({
-          userEvent: [...this.state.userEvents, userEvent.event]
+          event_id: event,
+          user_id: this.state.currentUser.id
+        }
+  
+        fetch(USEREVENTS, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(obj)
         })
+        .then(resp => resp.json())
+        .then(userEvent => {
+         
+          this.setState({
         
-      })
-     
-      
-    }
+             userEvents: [...this.state.userEvents, userEvent.event]
+            
+          })
+        })
+  }
 
 
     handleSearch=(e, search)=>{
@@ -229,7 +234,10 @@ class App extends Component{
         <Switch>
           {/* {this.state.currentUser ? <Redirect to='/profiles/current-user' /> : null } */}
             
-          <Route exact path='/profiles/current-user' render={ () => this.state.currentUser != null ? <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> }/> 
+          <Route exact path='/profiles/current-user' render={ () => {
+            return this.state.currentUser != null ? 
+             <UserProfile user={this.state.currentUser} userEvents={this.state.userEvents}/> : <Redirect to="/login"/> 
+            }}/> 
           <Route exact path='/' render={()=> <LandingPage />} />
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
           <Route exact path='/events' render={ () =>  (this.state.currentUser === null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
