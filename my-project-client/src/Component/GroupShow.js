@@ -82,7 +82,7 @@ class GroupShow extends Component {
                 </Grid.Column>
 
             <Grid.Column width={10}>
-                <EventContainer events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
+                <EventContainer userEvents={this.props.userEvents} events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
             
             {this.props.user ?
            

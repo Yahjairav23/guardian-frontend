@@ -85,9 +85,9 @@ class EventsContainer extends Component{
                     {this.props.user ?
                         <div> <h1>My Upcoming Events</h1>
                       
-                        {this.props.user.events.length > 0 ?
+                        {this.props.userEvents.length > 0 ?
                             <List>
-                            {this.props.user.events.map(event => {
+                            {this.props.userEvents.map(event => {
                                 return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
                             })
                             }

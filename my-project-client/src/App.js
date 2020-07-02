@@ -294,7 +294,7 @@ if(user){
             const id = routerProps.match.params.id 
             const group = this.state.groups.find(group => group.id === parseInt(id))
             const founder = this.state.users.find(user => user.id === group.creator_id)
-            return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder} userGroups={this.state.userGroups} deleteUG={this.deleteUG}/> : null
+            return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder} userGroups={this.state.userGroups} deleteUG={this.deleteUG} userEvents={this.state.userEvents}/> : null
             } 
           }/>
 
