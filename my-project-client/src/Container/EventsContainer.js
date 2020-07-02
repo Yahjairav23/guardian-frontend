@@ -56,7 +56,7 @@ class EventsContainer extends Component{
 //
 
     render(){
-        
+       
         const eventsArr = this.props.events.map(event => {
             return {title: event.title, date: event.event_date, description: event.description, address: event.street_address, image: event.image, city: event.city, state: event.state, group_id: event.group_id, event_id:event.id}
         }) 
@@ -74,7 +74,7 @@ class EventsContainer extends Component{
                     
                     {this.state.event ?    
                     <Modal open={this.state.showEvent} centered={true}>  
-                    <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
+                        <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
                     </Modal> 
                     :
                     false
@@ -82,16 +82,23 @@ class EventsContainer extends Component{
                 </Grid.Column>
 
                 <Grid.Column width={4}>
-                        <h1>My Upcoming Events</h1>
-                        {this.props.userEvents.length > 0 ?
+                    {this.props.user ?
+                        <div> <h1>My Upcoming Events</h1>
+                      
+                        {this.props.user.events.length > 0 ?
                             <List>
-                            {this.props.userEvents.map(event => {
+                            {this.props.user.events.map(event => {
                                 return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
                             })
                             }
                             </List>
+                           
                     :
                     <p>You Do Not Have Any Upcoming Events.</p>
+                    }
+                    </div>
+                    :
+                    null
                     }
                 </Grid.Column>
             </Grid>

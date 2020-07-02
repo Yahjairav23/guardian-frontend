@@ -55,7 +55,7 @@ class App extends Component{
 
       fetch(USERGROUPS)
       .then(resp => resp.json())
-      .then(userGroup => {this.setState({userGroups: [...this.state.userGroups, userGroup]})})
+      .then(userGroupArray => {this.setState({userGroups: userGroupArray})})
 
       
       if(localStorage.getItem("token")){
@@ -217,22 +217,51 @@ if(user){
       this.setState({userEvents: events})
     }
 
-    handleJoinGroup=(user_group)=>{
+    handleJoinGroup=(group_id)=>{
+      
+     const obj = {
+        group_id: group_id,
+        member_id: this.state.currentUser.id
+      }
    
       fetch(USERGROUPS, {
         method: 'POST', 
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(user_group)
+        body: JSON.stringify(obj)
       })
       .then(resp => resp.json())
       .then(user_groupObj=>{
+    
         this.setState({
-          userGroups : [...this.state.userGroups, user_groupObj],
-          
+          userGroups: [...this.state.userGroups, user_groupObj]
         })
       })
     }
 
+    deleteUG =(e, group_Id)=>{
+      e.preventDefault()
+
+      const toBeDeleted = this.state.userGroups.find(ug =>{
+        return ug.group.id === group_Id && ug.member.id === this.state.currentUser.id
+      })
+      const ug_array = this.state.userGroups.filter(ug =>{
+        return ug.id !== toBeDeleted.id
+      })
+   
+      this.setState({  
+        userGroups: ug_array
+      })
+
+      fetch(USERGROUPS + `/${toBeDeleted.id}`, {
+        method: 'DELETE',
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          group_id: group_Id,
+          member_id: this.state.currentUser.id
+        })
+      })
+      
+    }
 
   render(){
   
@@ -265,7 +294,7 @@ if(user){
             const id = routerProps.match.params.id 
             const group = this.state.groups.find(group => group.id === parseInt(id))
             const founder = this.state.users.find(user => user.id === group.creator_id)
-            return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder}/> : null
+            return  this.state.groups.length && this.state.users.length ? <GroupShow user={this.state.currentUser}  handleJoinGroup={this.handleJoinGroup} group={group} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} founder={founder} userGroups={this.state.userGroups} deleteUG={this.deleteUG}/> : null
             } 
           }/>
 

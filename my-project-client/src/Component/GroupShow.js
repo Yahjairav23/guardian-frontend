@@ -10,54 +10,53 @@ class GroupShow extends Component {
         super()
         this.state ={
             members: [],
-            user_group:{
-            member_id: 0,
-            group_id: 0
-            },
-            joinedModal: false
+            joinedModal: false,
+            deleteModal: false
         }
     }
 
-    handlCloseJoinedModal=()=>{
+    handleCloseJoinedModal=()=>{
         this.setState({
           joinedModal : false
         })
       }
 
       handleState=()=>{
+
           this.setState({
             joinedModal : !this.state.joinedModal
           })
         }
 
-    componentDidMount =() => {
-        fetch(`http://localhost:3000/groups/${this.props.group.id}`)
-        .then(resp => resp.json())
-        .then(data => {
-           const members = data.user_groups.map( ug => ug.member)
-            this.setState({members: members,
-                            user_group: { 
-                            member_id: this.props.user.id,
-                            group_id: this.props.group.id
-                        }
-            })
-        })
-    }
+        handleDeleteState=()=>{
 
+            this.setState({
+              deleteModal : !this.state.deleteModal
+            })
+          }
+   
 
     render(){
-       
+      
+    
         const group = this.props.group
         
         const groupEvents = this.props.events.filter( event => event.group_id == group.id)
     
         const startDate = new Date(this.props.group.created_at)
-
-        const member = this.state.members.map(member => {
-            return <p key={member.id}>{member.name}</p>
+    
+        const user_groups = this.props.userGroups.filter(ug => {
+           return ug.group_id === this.props.group.id
         })
-        
+       
+        const member =  user_groups.map(ug => {
+                return <p key={ug.member.id}>{ug.member.name}</p>
+            })
+
+        const existingUG = user_groups.filter(ug => ug.member.id === this.props.user.id)
+            
         return(
+            
         <Grid>
                 <Grid.Column width={4}>
                     <Image src={this.props.group.image} />
@@ -77,43 +76,97 @@ class GroupShow extends Component {
                     <br></br>
                     <h3>Members</h3>
                         {member}
+            
                         
 
                 </Grid.Column>
 
             <Grid.Column width={10}>
                 <EventContainer events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
-                
-                <Button onClick={this.handleState}>
-                    Join Group
-                </Button>
-             
-                <Modal >
-                {this.state.joinedModal ?
             
-                    <>
-                      <Header content='Thank you for Joining!' />
+            {this.props.user ?
+           
+           
+              existingUG.length > 0 ?
+                    <Button onClick={() => {
+                        this.handleDeleteState()
+                    }}>
+                        Leave Group
+                    </Button>
+                        :
+                    <Button onClick={() => {
+                        this.handleState()
+                    }}>
+                        Join Group
+                    </Button>
+                
+
+                :
+                false}
+             
+                {this.state.joinedModal ?
+                <Modal open={this.state.joinedModal} centered={true}>
+                      <Header content='Are you sure?' />
                         <Modal.Content>
                         <p>
-                            You have joined {this.props.group.name}
+                            Do you want to join {this.props.group.name}?
                         </p>
                         </Modal.Content>
                         <Modal.Actions>
-                    
-                        <Button color='green' inverted onClick={this.handleCloseJoinedModal}>
-                            <Icon name='checkmark' /> Got It!
+
+                        <Button color='red' onClick={() => {
+                            this.handleState()
+                            }}>
+                            Cancel
+                        </Button>
+
+                        <Button color='green' inverted onClick={()=> {
+                            this.handleCloseJoinedModal()
+                            this.props.handleJoinGroup(this.props.group.id)
+                            }}>
+                            <Icon name='checkmark' /> Join!
                         </Button>
                         </Modal.Actions>
-                </>
+                
+                </Modal>
                 :
                 null
                 }
+
+        {this.state.deleteModal ?
+                <Modal open={this.state.deleteModal} centered={true}>
+                      <Header content='Are you sure?' />
+                        <Modal.Content>
+                        <p>
+                            Do you want to leave {this.props.group.name}?
+                        </p>
+                        </Modal.Content>
+                        <Modal.Actions>
+
+                        <Button color='red' onClick={() => {
+                            this.handleDeleteState()
+                            }}>
+                            Cancel
+                        </Button>
+
+                        <Button color='green' inverted onClick={(e)=> {
+                            this.handleDeleteState()
+                            this.props.deleteUG(e, this.props.group.id)
+                            }}>
+                            <Icon name='checkmark' /> Leave!
+                        </Button>
+                        </Modal.Actions>
+                
                 </Modal>
+                :
+                null
+                }
 
             </Grid.Column>
 
         </Grid>
         )
+        
     }
 
 }
