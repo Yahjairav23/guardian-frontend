@@ -26,8 +26,8 @@ class LandingPage extends Component{
 
 render(){
     return(
-      
-        <div className='landing-page' >
+      <>
+        <div className='landing-page' ></div>
 
         <Container text position='center'>
   
@@ -41,8 +41,9 @@ render(){
             fontWeight: 'normal',
             marginBottom: 0,
             marginTop: '3em'
-          }}
+          }}   
         />
+
         <Header
         position='center'
           as='h2'
@@ -53,7 +54,9 @@ render(){
             marginTop:  '1.5em'
           }}
         />
+
         <br></br>
+
         <Button primary size='huge' position='centered' onClick={this.handleModal}>
           Learn More
         </Button>
@@ -67,10 +70,10 @@ render(){
           }
     
       </Container>
-      </div>
-
+      
+        </>
     )
-}
+  }
 }
 
 export default LandingPage

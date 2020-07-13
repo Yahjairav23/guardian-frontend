@@ -21,8 +21,9 @@ class GroupSearch extends Component{
     render(){
         return(
             <>
-            <Grid.Column width={6}>
+            <Grid.Column width={6} className='group-search'>
             <Search
+            showNoResults={false}
             placeholder='Search...'
             value={this.state.search}
             onSearchChange={(e)=>{

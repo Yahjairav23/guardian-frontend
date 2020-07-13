@@ -59,10 +59,30 @@ class GroupShow extends Component {
             
         <Grid>
                 <Grid.Column width={4}>
-                    <Image src={this.props.group.image} />
-                    {this.props.group.name}
+                    <Image src={this.props.group.image}  circular/>
+
+                    <div className='group-show-title'>{this.props.group.name}</div>
+                    <div className='group-show-location'>{this.props.group.city}, {this.props.group.state}</div>
                     <br></br>
-                    {this.props.group.city}, {this.props.group.state}
+
+                    {this.props.user ?
+                    existingUG.length > 0 ?
+                            <Button className='' onClick={() => {
+                                this.handleDeleteState()
+                            }}>
+                                Leave Group
+                            </Button>
+                                :
+                            <Button className='' onClick={() => {
+                                this.handleState()
+                            }}>
+                                Join Group
+                            </Button>
+                        :
+                        false}
+                        
+
+                    
                     <br></br>
                     <h4>Founder:</h4>
                     <p>{this.props.founder.name}</p>
@@ -84,25 +104,7 @@ class GroupShow extends Component {
             <Grid.Column width={10}>
                 <EventContainer userEvents={this.props.userEvents} events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
             
-            {this.props.user ?
-           
-           
-              existingUG.length > 0 ?
-                    <Button onClick={() => {
-                        this.handleDeleteState()
-                    }}>
-                        Leave Group
-                    </Button>
-                        :
-                    <Button onClick={() => {
-                        this.handleState()
-                    }}>
-                        Join Group
-                    </Button>
-                
-
-                :
-                false}
+            
              
                 {this.state.joinedModal ?
                 <Modal open={this.state.joinedModal} centered={true}>

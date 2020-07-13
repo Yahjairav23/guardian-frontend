@@ -62,8 +62,10 @@ class EventsContainer extends Component{
         }) 
         
         return(
+            <>
+
             <div>
-                <Grid>
+                <Grid textAlign='center' divided padded>
                 <Grid.Column width={10}>
                     <h1>Calendar of Events</h1>
                     <FullCalendar eventClick={this.handleClick} defaultView="dayGridMonth" plugins={[ dayGridPlugin, interactionPlugin ]}  events={
@@ -84,14 +86,21 @@ class EventsContainer extends Component{
                 <Grid.Column width={4}>
                     {this.props.user ?
                         <div> <h1>My Upcoming Events</h1>
-                      
+                            <div className='ue-title'></div>
+                         
+                        
+
                         {this.props.userEvents.length > 0 ?
-                            <List>
-                            {this.props.userEvents.map(event => {
-                                return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
-                            })
-                            }
-                            </List>
+                    
+                            <div className='upcoming-events'>
+                                <List>
+                                {this.props.userEvents.map(event => {
+                                    return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
+                                })
+                                }
+                                </List>
+                            </div>
+                    
                            
                     :
                     <p>You Do Not Have Any Upcoming Events.</p>
@@ -103,6 +112,7 @@ class EventsContainer extends Component{
                 </Grid.Column>
             </Grid>
             </div>
+            </>
         ) 
     }
 }

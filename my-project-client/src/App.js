@@ -195,17 +195,15 @@ if(user){
     handleSearch=(e)=>{
       console.log(e.target.value)
       const search = e.target.value
-      if(search.length > 0){
-
-       const groups=this.state.groups.filter(group => group.name.toLowerCase().includes(search.toLowerCase()))
-
+      const groups=this.state.groups.filter(group => group.name.toLowerCase().includes(search.toLowerCase()))
+      if(groups.length > 0){
         this.setState({
           filteredGroups: groups
         })
 
       }else{
         this.setState({
-          filteredGroups: this.state.groups
+          filteredGroups: []
         })
 
       }
@@ -281,8 +279,9 @@ if(user){
           <Route exact path='/unhoused' render={ () =>  <UnhousedContainer/>} />
           <Route exact path='/events' render={ () =>  (this.state.currentUser === null ? <Redirect to="/login"/> : <EventsContainer userEvents={this.state.userEvents} updateUserEvents={this.updateUserEvents} handleRSVP={this.handleRSVP} events={this.state.events} groups={this.state.groups} user={this.state.currentUser} />)} />
           <Route exact path='/groups' render={ () => {
-            return this.state.filteredGroups.length ?
-            <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} />:
+            return this.state.filteredGroups.length > 0 ?
+            <GroupsContainer groups={this.state.filteredGroups} handleSearch={this.handleSearch} />
+            :
             <GroupsContainer groups={this.state.groups} handleSearch={this.handleSearch} />
           } }/>
           <Route exact path='/profiles' render={ () =>  <ProfilesContainer users={this.state.users}/>}  />
