@@ -81,6 +81,7 @@ class EventsContainer extends Component{
                     }
                 </Grid.Column>
 
+                    
                 <Grid.Column width={4}>
                         <h1>My Upcoming Events</h1>
                         {this.props.userEvents.length > 0 ?

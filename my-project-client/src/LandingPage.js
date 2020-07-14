@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Header, Button, Icon, Modal, Image, Grid} from 'semantic-ui-react'
+import { Container, Header, Button, Modal } from 'semantic-ui-react'
 import About from './Component/About.js'
 
 class LandingPage extends Component{

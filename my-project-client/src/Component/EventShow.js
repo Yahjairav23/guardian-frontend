@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { Button, Header, Image, Modal, Container, Grid } from 'semantic-ui-react'
+import { Button, Header, Image, Grid } from 'semantic-ui-react'
 
 const Event=(props)=>{
 

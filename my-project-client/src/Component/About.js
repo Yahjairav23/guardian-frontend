@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Header, Button, Icon, Modal, Image} from 'semantic-ui-react'
+import { Button, Icon, Modal, Image} from 'semantic-ui-react'
 
 const About=(props)=>{
     return(

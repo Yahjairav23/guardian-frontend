@@ -49,7 +49,7 @@ class GroupShow extends Component {
        
         const group = this.props.group
         
-        const groupEvents = this.props.events.filter( event => event.group_id == group.id)
+        const groupEvents = this.props.events.filter( event => event.group_id === group.id)
     
         const startDate = new Date(this.props.group.created_at)
 
@@ -57,6 +57,9 @@ class GroupShow extends Component {
             return <p key={member.id}>{member.name}</p>
         })
         
+        const userGroupEvents = this.props.user.events.filter(event => event.group_id === group.id)
+        debugger
+
         return(
         <Grid>
                 <Grid.Column width={4}>
@@ -82,7 +85,7 @@ class GroupShow extends Component {
                 </Grid.Column>
 
             <Grid.Column width={10}>
-                <EventContainer events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} />
+                <EventContainer events={groupEvents} user={this.props.user} groups={this.props.groups} handleRSVP={this.props.handleRSVP} group={true}/>
                 
                 <Button onClick={this.handleState}>
                     Join Group

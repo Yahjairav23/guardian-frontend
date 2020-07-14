@@ -6,7 +6,6 @@ import UnhousedContainer from './Container/UnhousedContainer.js'
 import EventsContainer from './Container/EventsContainer.js'
 import GroupsContainer from './Container/GroupsContainer.js'
 import ProfilesContainer from './Container/ProfilesContainer.js'
-import Profile from './Component/Profile.js'
 import UserProfile from './Component/UserProfile.js'
 import SignUp from './Component/SignUp.js'
 import Login from './Component/Login.js'
@@ -115,7 +114,7 @@ class App extends Component{
     handleLogin = (userInfo) => {
 
       const user = this.state.users.find(userObj => userObj.username === userInfo.username)
-      
+      debugger
 if(user){
       const userObj = {
         username: userInfo.username,
@@ -262,7 +261,7 @@ if(user){
           <Route exact path='/events/:id' render={ (routerProps) => {
             const id = routerProps.match.params.id 
             const event = this.state.events.find(event => event.id === parseInt(id))
-            const group = this.state.groups.find(group => group.id === parseInt(id))
+            // const group = this.state.groups.find(group => group.id === parseInt(id))
             return  this.state.groups.length && this.state.events.length ? <EventShow event={event} groups={this.state.groups} handleRSVP={this.handleRSVP} /> : null
             } 
           }/>
