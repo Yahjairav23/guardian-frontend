@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Container, Header, Button, Modal } from 'semantic-ui-react'
 import About from './Component/About.js'
+import {logo} from './logo.svg'
+import { withRouter } from 'react-router-dom'
 
 class LandingPage extends Component{
 
@@ -26,23 +28,27 @@ class LandingPage extends Component{
 
 render(){
     return(
-      
-        <div className='landing-page' >
-
-        <Container text position='center'>
+      <>
+        <div className='landing-page' ></div>
+      {/* <div style={{'text-align': 'center', 'vertical-align': 'middle'}}> */}
+        <Container text position='center' style={{'text-align': 'center'}}>
   
+        {/* <img src='https://i.imgur.com/oIajXtc.png' /> */}
         <Header
           position='center'
           as='h1'
           content='Guardian'
         
           style={{
+            color: 'white',
+            letterSpacing: '5px',
             fontSize: '4em',
-            fontWeight: 'normal',
+            fontWeight: 'heavy',
             marginBottom: 0,
             marginTop: '3em'
-          }}
+          }}   
         />
+
         <Header
         position='center'
           as='h2'
@@ -50,11 +56,14 @@ render(){
           style={{
             fontSize:  '1.7em',
             fontWeight: 'normal',
-            marginTop:  '1.5em'
+            marginTop:  '.5em',
+            fontStyle: 'italic'
           }}
         />
+
         <br></br>
-        <Button primary size='huge' position='centered' onClick={this.handleModal}>
+
+        <Button primary size='huge' position='centered' onClick={this.handleModal} style={{marginBottom: '3em'}}>
           Learn More
         </Button>
 
@@ -67,10 +76,10 @@ render(){
           }
     
       </Container>
-      </div>
-
+      {/* </div> */}
+      </>
     )
-}
+  }
 }
 
 export default LandingPage

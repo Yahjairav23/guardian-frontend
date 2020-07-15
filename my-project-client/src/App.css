@@ -3,17 +3,268 @@
 
 .landing-page{
   background-image: url('https://i.imgur.com/lGI9a7U.png') !important;
-  /* background-size: cover !important; */
-  /* background-size: 100% 100% */
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  
+  z-index:-1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Events */
+.ue-title{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid teal;
+}
+
+/* UserProfile */
+.up-background{
+ 
+  background-image: linear-gradient(to bottom right, rgb(4, 208, 208), rgb(255, 255, 255));
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  
+  z-index:-1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.border{
+  border-right: 1px solid rgb(0, 0, 0);
+}
+.border-top{
+ border-top: 1px solid rgb(0, 0, 0);
+ padding-top: 1em;
+ padding-bottom: 1em;
+}
+
+.up-box{
+    border: 1px solid rgb(4, 208, 208);
+    border-radius: 4px; 
+}
+
+.up-box div{
+  padding: 0px 0px;
+}
+
+.user-image{
+  width:200px;
+  height: 200px;
+  display: block;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
+
+.up-title{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid rgba(25, 25, 26, 0.838);
+  width: 30em;
+}
+
+.up-title-details{
+  text-shadow: 2px 2px 7px rgba(24, 24, 24, 0.653)
+}
+
+a{
+  color: black
+}
+
+a:hover{
+  color: rgb(4, 208, 208)
+}
+
+.up-container{
+  font-size: large;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+/* Groups */
+
+.groups-page {
+  margin: 3em
+}
+
+.group-search {
+  padding-bottom: 5em;
+}
+
+.groups-page-title {
+  font-size: 50px;
+}
+
+.groups-image {
+  height: 300px
+}
+
+/* Group Show */
+
+.group-show {
+  margin-left: 5em;
+  margin-right: 5em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.group-show-title {
+  font-size: 30px;
+  margin-top: .5em;
   text-align: center;
-  height: 1000px;
-  display: flex;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment:fixed;
-  margin: auto;
-  padding: 0
+}
+
+.group-show-location {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.group-join {
+  text-align: center;
+  padding: 10%;
+}
+
+.disc-header {
+  margin-bottom: 0em;
+}
+
+.disc-ptag {
+  margin-left: 8px;
+  margin-bottom: 0em;
+}
+
+.disc-ptag.about {
+  margin-top: 1em;
+  margin-left: 8px;
+  text-align: center;
+  font-style: italic;
+  box-sizing: content-box;
+}
+
+.disc-header.about {
+  text-align: center;
+}
+
+/* Event Modal */
+
+.event-modal-descr-div{
+  margin-top: 0;
+  margin-bottom: 5px;
+  margin-left: 1em;
+}
+
+.event-modal-ptag {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 1em;
+}
+
+.event-modal-ptag.show {
+  font-size: 18px;
+}
+
+.event-modal-header {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.event-modal-header.show {
+  text-align: center;
+  font-size: 50px;
+}
+
+.event-modal-header.host {
+  color: darkgrey;
+  font-style: italic;
+}
+
+.event-modal-header.host.show {
+  text-align: center;
+  font-size: 30px;
+}
+
+.event-modal-descr {
+  margin-left: 1em;
+}
+
+.event-modal-descr.show {
+  font-size: 20px;
+}
+
+.event-show {
+  padding: 4em;
+}
+
+.event-page {
+  padding: 1em
+}
+
+.ui.button.join-btn {
+  background-color: rgb(4, 208, 208);
+}
+
+.ui.button.join-btn:hover {
+  background-color: rgb(0, 122, 122);
+  color: white
+}
+
+.ui.button.leave-btn {
+  background-color: rgb(0, 122, 122);
+  color: white;
+}
+
+.ui.button.leave-btn:hover {
+  background-color: rgb(4, 208, 208);
+  color: rgb(0,0,0,.6);
 }
 
 
+
+
+/* Events Calendar Styling */
+div.fc-content {
+  cursor: pointer;
+  background-color: rgb(0, 122, 122);
+  border-color: rgb(0, 122, 122);
+}
+
+div.fc-content:hover {
+  background-color: rgb(4, 208, 208);
+  border-color: rgb(4, 208, 208);
+}
+
+.fc-day-grid-event {
+  cursor: pointer;
+  background-color: rgb(0, 122, 122);
+  border-color: rgb(0, 122, 122);
+}
+
+.fc-day-grid-event:hover {
+  background-color: rgb(4, 208, 208);
+  border-color: rgb(4, 208, 208);
+}
+
+
+.fc-prev-button.fc-button{
+  background-color: rgb(0, 122, 122);
+  border-color: rgb(0, 122, 122);
+  border-right-color: white;
+}
+
+.fc-next-button.fc-button{
+  background-color: rgb(0, 122, 122);
+  border-color: rgb(0, 122, 122);
+  border-left-color: white;
+}
+
+.fc-title {
+  /* color: black; */
+  cursor: pointer;
+}

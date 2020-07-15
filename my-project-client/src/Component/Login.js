@@ -30,7 +30,6 @@ class Login extends Component {
             </Header>
             {this.props.errorMessage ? this.props.handleError() : null}
                 <Form size='large'onSubmit={ (e) => {
-                    {debugger}
                     e.preventDefault()
                     this.props.handleLogin(this.state)
                 }}>

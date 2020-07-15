@@ -59,7 +59,7 @@ class Navbar extends Component{
             <Menu.Item
               name='groups'
               active={activeItem === 'groups'}
-            //   onClick={() => {this.handleItemClick(), this.props.logout()}}
+              onClick={this.handleItemClick}
               as={Link}
               to='/groups'
             >
@@ -67,7 +67,7 @@ class Navbar extends Component{
             </Menu.Item>
 
         {/* // */}
-
+            {this.props.currentUser ?
             <Menu.Item
               name='profile'
               active={activeItem === 'profile'}
@@ -77,7 +77,8 @@ class Navbar extends Component{
             >
                 My Profile
             </Menu.Item>
-
+            :
+            false}
 
         {/* // */}
             {this.props.currentUser ?

@@ -21,21 +21,14 @@ class GroupSearch extends Component{
     render(){
         return(
             <>
-            <Grid.Column width={6}>
+            <Grid.Column width={6} className='group-search'>
             <Search
-            //   loading={isLoading}
-            //   onResultSelect={this.handleResultSelect}
-            //   onSearchChange={_.debounce(this.handleSearchChange, 500, {
-            //     leading: true,
-            //   })}
-            //   results={results}
-            //   value={value}
-            //   {...this.props}
+            showNoResults={false}
             placeholder='Search...'
             value={this.state.search}
             onSearchChange={(e)=>{
                 this.changeSearch(e)
-                this.props.handleSearch(e, this.state.search)
+                this.props.handleSearch(e)
                 
             }}
             />

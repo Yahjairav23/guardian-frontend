@@ -53,28 +53,37 @@ class EventsContainer extends Component{
             showEvent : false
         })
       }
+
+    rsvpShow = () => {
+        if(this.props.userEvents.includes(this.state.event)){
+            return true
+        }else{
+            return false
+        }
+    }
 //
 
     render(){
-        
-        const eventsArr = this.props.events.map(event => {
+       
+        const eventsArr = this.props.events.filter(event => new Date(event.event_date).getTime() >= new Date().getTime()).map(event => {
             return {title: event.title, date: event.event_date, description: event.description, address: event.street_address, image: event.image, city: event.city, state: event.state, group_id: event.group_id, event_id:event.id}
         }) 
         
         return(
+            <>
+
             <div>
-                <Grid>
+                <Grid textAlign='center' divided padded>
                 <Grid.Column width={10}>
                     <h1>Calendar of Events</h1>
                     <FullCalendar eventClick={this.handleClick} defaultView="dayGridMonth" plugins={[ dayGridPlugin, interactionPlugin ]}  events={
-                        // make the event dates dynamic
                     eventsArr  
                     }/>
 
                     
-                    {this.state.event ?    
-                    <Modal open={this.state.showEvent} centered={true}>  
-                    <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
+                    {this.state.event ? 
+                    <Modal open={this.state.showEvent} centered={false}>  
+                        <Event rsvpShow={this.rsvpShow} event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
                     </Modal> 
                     :
                     false
@@ -83,20 +92,41 @@ class EventsContainer extends Component{
 
                     
                 <Grid.Column width={4}>
-                        <h1>My Upcoming Events</h1>
+                    {this.props.user ?
+                        <div> <h1>My Upcoming Events</h1>
+                            <div className='ue-title'></div>
+                         
+                        
+
                         {this.props.userEvents.length > 0 ?
-                            <List>
-                            {this.props.userEvents.map(event => {
-                                return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
-                            })
-                            }
-                            </List>
+                    
+                            <div className='upcoming-events'>
+                                <List>
+                                {this.props.userEvents.filter(event => new Date(event.event_date).getTime() >= new Date().getTime()).map(event => {
+                                    const eventDate = new Date(event.event_date)
+                                    return(
+                                        <List.Content as={Link} to={`/events/${event.id}`} >
+                                            <List.Header>{event.title} </List.Header>
+                                            <List.Description style={{'padding-bottom': '15px'}}> {eventDate.toDateString()} </List.Description>
+                                        </List.Content>
+                                    )
+                                })
+                                }
+                                </List>
+                            </div>
+                    
+                           
                     :
                     <p>You Do Not Have Any Upcoming Events.</p>
+                    }
+                    </div>
+                    :
+                    null
                     }
                 </Grid.Column>
             </Grid>
             </div>
+            </>
         ) 
     }
 }

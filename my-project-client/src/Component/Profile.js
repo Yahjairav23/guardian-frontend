@@ -10,7 +10,7 @@ const Profile=(props)=>{
     return(
         <Card color='teal'>
             <h2>{user.name}</h2>
-            <Image src={user.image} alt="avitar" wrapped ui={false} />
+            <Image src={user.image} alt="avatar" wrapped ui={false} />
             <Card.Meta>{user.city}, {user.state}</Card.Meta>
             <Card.Meta>{user.age} y/o  -  Birthday: {bdate.toLocaleDateString()}</Card.Meta>
             <Card.Description>{user.email}</Card.Description>
