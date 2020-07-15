@@ -38,19 +38,7 @@ const Event=(props)=>{
                         </div>
                         <h4 className='event-modal-descr show'>{props.event.description}</h4>
 
-                        <Button
-                            onClick={()=>{
-                                
-                                // props.updateUserEvents(props.event)
-                                props.handleRSVP(props.event._def.extendedProps.event_id)
-                                props.handleClose()
-                            }}
-                            positive
-                            icon='checkmark'
-                            labelPosition='right'
-                            content='RSVP'
-                        />
-
+                        
                 </Grid.Column>
             </Grid>
        </div>

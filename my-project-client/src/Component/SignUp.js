@@ -75,7 +75,7 @@ class SignUp extends Component{
             <>
                 {this.props.errorMessage ? this.props.handleError : null}
 
-                <Form onSubmit={(e)=>{
+                <Form className='sign-up-form' style={{padding: '5em', width: '30em'}} onSubmit={(e)=>{
                     e.preventDefault()
                     this.props.handleSignUp(this.state.newUser)
                     // return <Redirect to='/profiles/current-user' />
@@ -91,6 +91,7 @@ class SignUp extends Component{
                         name='name'
                         onChange={this.handleForm}
                     />
+
                     <Form.Field
                         id='form-input-control-username'
                         control={Input}
@@ -100,19 +101,32 @@ class SignUp extends Component{
                         onChange={this.handleForm}
                     />
 
-                    <Form.Field
-                        id='form-input-control-password'
-                        control={Input}
-                        label='Password'
-                        placeholder='Password'
-                        name='password'
-                        input='password'
-                        onChange={this.handleForm}
-                    />
+                    
+                    
                     
                     </Form.Group>
+                    {/* <h3>Birthday</h3>
+                        <div className="ui calendar" id="example1">
+                        <div className="ui input left icon">
+                            <input type="date" name='birthday' placeholder="Birthdate" onChange={(e)=>{
+                                this.handleBirthday(e)
+                                }
+                            }/>
+                        </div>
+                        </div> */}
+
+                        <Form.Input
+                            type='date'
+                            control={Input}
+                            label="Date of Birth"
+                            placeholder='Date'
+                            name='birthday'
+                            onChange={(e)=>{
+                                this.handleBirthday(e)
+                                }}
+                            />
                 
-                        <Form.Field
+                    <Form.Field
                             id='form-input-control-city'
                             control={Input}
                             label='City'
@@ -120,7 +134,7 @@ class SignUp extends Component{
                             name='city'
                             onChange={this.handleForm}
                         />
-                    
+                     
                         <Dropdown 
                         id='form-input-control-error-state'
                         placeholder='State' 
@@ -137,16 +151,6 @@ class SignUp extends Component{
                             }
                         })
                     } />
-
-                        <h3>Birthday</h3>
-                        <div className="ui calendar" id="example1">
-                        <div className="ui input left icon">
-                            <input type="date" name='birthday' placeholder="Birthdate" onChange={(e)=>{
-                                this.handleBirthday(e)
-                                }
-                            }/>
-                        </div>
-                        </div>
 
 
                     <Form.Field
@@ -181,6 +185,16 @@ class SignUp extends Component{
                             onChange={this.handleForm}
                         />
                     </Form.Field>
+
+                    <Form.Field
+                        id='form-input-control-password'
+                        control={Input}
+                        label='Password'
+                        placeholder='Password'
+                        name='password'
+                        input='password'
+                        onChange={this.handleForm}
+                    /> 
                     
 
                     <Form.Field

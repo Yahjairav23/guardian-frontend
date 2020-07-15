@@ -29,7 +29,7 @@ class Navbar extends Component{
               <Image src='https://i.imgur.com/oIajXtc.png' alt='logo' size='mini' circular/>
             </Menu.Item>
         
-        {/* // */}
+           {/* / / */}
 
             <Menu.Item
               name='Home'
@@ -37,6 +37,7 @@ class Navbar extends Component{
               onClick={this.handleItemClick}
               as={Link}
               to='/'
+              className='menu-item'
             >
                     Home
 
@@ -50,6 +51,7 @@ class Navbar extends Component{
               onClick={this.handleItemClick}
               as={Link}
               to='/events'
+              className='menu-item'
             >
                 Events
             </Menu.Item>
@@ -61,7 +63,9 @@ class Navbar extends Component{
               active={activeItem === 'groups'}
               onClick={this.handleItemClick}
               as={Link}
+              className='menu-item'
               to='/groups'
+              
             >
                     Groups
             </Menu.Item>
@@ -74,6 +78,7 @@ class Navbar extends Component{
               onClick={this.handleItemClick}
               as={Link}
               to='/profiles/current-user'
+              className='menu-item'
             >
                 My Profile
             </Menu.Item>
@@ -92,6 +97,7 @@ class Navbar extends Component{
                     }}
                     as={Link}
                     to='/login'
+                    className='menu-item'
                 >
                         Logout
                 </Menu.Item>
@@ -104,6 +110,7 @@ class Navbar extends Component{
                     onClick={this.handleItemClick}
                     as={Link}
                     to='/login'
+                    className='menu-item'
                 >
                         Login
                 </Menu.Item>
@@ -114,6 +121,7 @@ class Navbar extends Component{
                     onClick={this.handleItemClick}
                     as={Link}
                     to='/sign-up'
+                    className='menu-item'
                 >
                         Sign Up
                 </Menu.Item>

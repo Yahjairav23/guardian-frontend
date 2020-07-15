@@ -7,7 +7,6 @@ class UserProfile extends React.Component {
     render(){
         
         if(this.props.user){
-        //   debugger
         return(
             
         <>
@@ -15,49 +14,80 @@ class UserProfile extends React.Component {
     <div className='up-background'></div>
     
       
-            <Grid className='up-container'>
+            <Grid className='up-container' divided='vertically'>
            
-             <Grid.Column width={2}></Grid.Column>
+             
      
              
-            
-                <Grid.Column width={4} textAlign='center' className='border' padded divided>
+             <Grid.Row columns={3}
+             className='gr-container'
+             style={{
+                 padding: '5em'
+                 
+             }} >
+                        {/* <div className='drop-shadow'> */}
+                        <div className='profile-card'>
+                            <Grid>
+                                <Grid.Column width={5} textAlign='center' padded className='card-border'>
+                                    <br></br>
+                                        <p><h1 className='up-title-details'>{this.props.user.name}, <h3>Age:</h3> {this.props.user.age}</h1></p>
+                                        
+                                        <Image src={this.props.user.image} className='avatar'/>
+                                        <br></br>
+                                        <br></br>
+                                    
+                                    <br></br>
+                                </Grid.Column>
+                              
+                                <Grid.Column width={5} textAlign='center' padded className='card-border'>
+                                    <br></br>
+                                            <p><h3>DOB:</h3> {this.props.user.birthday.split('-')[1]}/{this.props.user.birthday.split('-')[2]}/{this.props.user.birthday.split('-')[0]}</p>
+                                            <p><h3>Location:</h3> {this.props.user.city}, {this.props.user.state}</p>            
+                                            <p><h3>Email:</h3> {this.props.user.email}</p>
+                                     <br></br>
+                                     
+                               
+                                 </Grid.Column>
+                                 
+                                 <Grid.Column width={5} textAlign='center' padded>
+                                   <br></br>
+                                        <p><h3>Username:</h3> {this.props.user.username}</p>
+                                        <p><h3>Bio:</h3> {this.props.user.bio}</p>
+                                    </Grid.Column>
+
+                            </Grid>
+                       
+                        </div>
+            </Grid.Row>
+        
+            <Grid.Row columns={2} className='gr-container-2'>
+                <Grid.Column textAlign='center' padded className='border'>
                     
-                    <h1 className='up-title-details'>Welcome Back {this.props.user.name}!</h1>
-                    <br></br>
-                    <Image src={this.props.user.image} size='medium' circular/>
-                    <br></br>
-                    <div className='border-top'>
-                        <p><h3>Username:</h3> {this.props.user.username}</p>
-                        <p><h3>Location:</h3> {this.props.user.city}, {this.props.user.state}</p>
-                        <p><h3>Email:</h3> {this.props.user.email}</p>
-                        <p><h3>Bio:</h3> {this.props.user.bio}</p>
-                        <p><h3>Age:</h3> {this.props.user.age}</p>
-                        <p><h3>DOB:</h3> {this.props.user.birthday.split('-')[1]}/{this.props.user.birthday.split('-')[2]}/{this.props.user.birthday.split('-')[0]}</p>
-                    </div>
-                </Grid.Column>
-                
-                <Grid.Column width={8} textAlign='center' padded>
-                    
-                            <h1 className='up-title-details'>My Upcomming Event RSVPs</h1>
+                            <h1 className='up-title-details'>My Upcoming Event RSVPs</h1>
                             <div className='up-title'></div>
                             {this.props.userEvents.length > 0  ?
                             <List>
                                 {this.props.userEvents.filter(event => new Date(event.event_date).getTime() >= new Date().getTime()).map(event => {
-                                    return <List.Item as={Link} to={`/events/${event.id}`}>{event.title}</List.Item>
+                                    return <List.Content as={Link} to={`/events/${event.id}`}>
+                                     <List.Item>{event.title}</List.Item>
+                                     </List.Content>
                                 })
                                 }
                             </List>
                             :
                             <p>You Don't Have Any Upcoming Events.</p>
                             }
-                   
+                   </Grid.Column>
+
+                   <Grid.Column textAlign='center' padded>
                             <h1 className='up-title-details'>My Groups</h1>
                             <div className='up-title'></div>
                             {this.props.user.member_user_groups.length > 0 ?
                             <List>
                                 {this.props.user.member_user_groups.map(group => {
-                                    return <List.Item as={Link} to={`/groups/${group.id}`}>{group.group.name}</List.Item>
+                                    return <List.Content>
+                                                 <List.Item as={Link} to={`/groups/${group.id}`}>{group.group.name}</List.Item>
+                                    </List.Content>
                                 })
                                 }
                             </List>
@@ -65,12 +95,9 @@ class UserProfile extends React.Component {
                             <p>You Are Not A Part Of Any Groups Yet.</p>
                             }
             
+                     </Grid.Column>
                 
-                </Grid.Column>
-               
-                
-
-                <Grid.Column width={2}></Grid.Column>
+               </Grid.Row>
                
 
             </Grid>

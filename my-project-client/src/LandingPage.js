@@ -54,16 +54,19 @@ render(){
           as='h2'
           content='Lend A Helping Hand.'
           style={{
+            borderTop: 'solid',
+            padding: '1em',
             fontSize:  '1.7em',
             fontWeight: 'normal',
-            marginTop:  '.5em',
-            fontStyle: 'italic'
+            // marginTop:  '1em',
+            color: 'white',
+            letterSpacing: '5px'
           }}
         />
 
         <br></br>
 
-        <Button primary size='huge' position='centered' onClick={this.handleModal} style={{marginBottom: '3em'}}>
+        <Button className='learn-more-btn' primary size='huge' position='centered' onClick={this.handleModal} style={{marginBottom: '3em'}}>
           Learn More
         </Button>
 

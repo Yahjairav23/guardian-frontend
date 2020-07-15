@@ -7,12 +7,12 @@ const Group=(props)=>{
     return( 
               
        <>
-            <Card as={Link} to={`/groups/${props.group.id}`}>
+            <Card as={Link} to={`/groups/${props.group.id}`} className='group-card'>
                 <img src={props.group.image} height={350}/>                
                 <Card.Content>
-                <Card.Header>{props.group.name}</Card.Header>
+                <Card.Header><p>{props.group.name}</p></Card.Header>
                 <Card.Description>
-                    {props.group.city}, {props.group.state}
+                    <p>{props.group.city}, {props.group.state}</p>
                 </Card.Description>
                     <br></br>
                 </Card.Content>

@@ -33,7 +33,7 @@ class EventsContainer extends Component{
     }
 
     handleClick=(e)=>{
-        
+        // eventsArr.find
         this.setState({
             event : e.event,
             showEvent: !this.state.showEvent
@@ -54,13 +54,6 @@ class EventsContainer extends Component{
         })
       }
 
-    rsvpShow = () => {
-        if(this.props.userEvents.includes(this.state.event)){
-            return true
-        }else{
-            return false
-        }
-    }
 //
 
     render(){
@@ -68,7 +61,6 @@ class EventsContainer extends Component{
         const eventsArr = this.props.events.filter(event => new Date(event.event_date).getTime() >= new Date().getTime()).map(event => {
             return {title: event.title, date: event.event_date, description: event.description, address: event.street_address, image: event.image, city: event.city, state: event.state, group_id: event.group_id, event_id:event.id}
         }) 
-        
         return(
             <>
 
@@ -83,7 +75,7 @@ class EventsContainer extends Component{
                     
                     {this.state.event ? 
                     <Modal open={this.state.showEvent} centered={false}>  
-                        <Event rsvpShow={this.rsvpShow} event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
+                        <Event event={this.state.event} groups={this.props.groups} handleCloseButton={this.handleCloseButton} handleRSVP={this.props.handleRSVP} handleClose={this.handleClose}/>
                     </Modal> 
                     :
                     false
@@ -105,9 +97,9 @@ class EventsContainer extends Component{
                                 {this.props.userEvents.filter(event => new Date(event.event_date).getTime() >= new Date().getTime()).map(event => {
                                     const eventDate = new Date(event.event_date)
                                     return(
-                                        <List.Content as={Link} to={`/events/${event.id}`} >
+                                        <List.Content as={Link} to={`/events/${event.id}`} key={event.id}>
                                             <List.Header>{event.title} </List.Header>
-                                            <List.Description style={{'padding-bottom': '15px'}}> {eventDate.toDateString()} </List.Description>
+                                            <List.Description style={{paddingBottom: '15px'}}> {eventDate.toDateString()} </List.Description>
                                         </List.Content>
                                     )
                                 })
