@@ -86,12 +86,6 @@ p{
   width:70em;
   justify-content: center;
 }
-/* .drop-shadow{
-  width: 50em;
-  justify-content: center;
-  box-shadow: 5px 10px 8px #1c1c1c;
-  margin: auto;
-} */
 
 .up-box{
     border: 1px solid rgb(4, 208, 208);
@@ -119,10 +113,6 @@ p{
   border-bottom: 2px solid teal;
   width: 20em;
 }
-/* 
-.up-title-details{
-  text-shadow: 2px 2px 7px rgba(24, 24, 24, 0.653)
-} */
 
 a{
   color: black
@@ -331,7 +321,6 @@ div.fc-content:hover {
 }
 
 .fc-title {
-  /* color: black; */
   cursor: pointer;
 }
 
