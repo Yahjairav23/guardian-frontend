@@ -7,9 +7,7 @@ const About=(props)=>{
         <Modal.Header>Welcome to Guardian</Modal.Header>
         <Modal.Content image>
           <Image wrapped size='medium' src='https://i.imgur.com/oIajXtc.png' circular/>
-          <Modal.Description size='large'>
-            {/* <Header>Welcome to Guardian</Header> */}
-           
+          <Modal.Description size='large'>           
             <h3>Guardian is an app that connects people to groups that participate in outreach unhoused individuals.</h3>
             <br></br>
             <br></br>

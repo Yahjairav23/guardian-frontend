@@ -13,9 +13,7 @@ import GroupShow from './Component/GroupShow.js'
 import EventShow from './Component/EventShow.js'
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import { Message} from 'semantic-ui-react'
-// import {Router} from 'react-router-dom'
 
-// const USERS = 'http://localhost:3000/users'
 const USERS = 'http://localhost:3000/api/v1/users'
 const EVENTS = 'http://localhost:3000/events'
 const GROUPS = 'http://localhost:3000/groups'
@@ -165,7 +163,6 @@ class App extends Component{
     ///
 
     handleRSVP = (event) => {
-      // this.props.handleRSVP
 
       let obj = {
           event_id: event,
@@ -268,7 +265,6 @@ class App extends Component{
       <>
        <Navbar currentUser={this.state.currentUser} logout={this.handleLogout} />
         <Switch>
-          {/* {this.state.currentUser ? <Redirect to='/profiles/current-user' /> : null } */}
             
           <Route exact path='/profiles/current-user' render={ () => {
             return this.state.currentUser != null ? 
@@ -299,7 +295,6 @@ class App extends Component{
           <Route exact path='/events/:id' render={ (routerProps) => {
             const id = routerProps.match.params.id 
             const event = this.state.events.find(event => event.id === parseInt(id))
-            // const group = this.state.groups.find(group => group.id === parseInt(id))
             return  this.state.groups.length && this.state.events.length ? <EventShow event={event} groups={this.state.groups} handleRSVP={this.handleRSVP} /> : null
             } 
           }/>

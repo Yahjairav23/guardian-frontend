@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Image, Modal, Grid } from 'semantic-ui-react'
+import { Button, Image, Modal, Grid } from 'semantic-ui-react'
 
 const Event=(props)=>{
     

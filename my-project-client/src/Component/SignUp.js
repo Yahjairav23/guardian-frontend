@@ -4,10 +4,6 @@ import {Input, TextArea, Dropdown } from 'semantic-ui-react'
 import states from '../states.json'
 import {withRouter} from 'react-router-dom';
 
-// import {Link} from 'react-router-dom';
-
-
-
 
 class SignUp extends Component{
 
@@ -30,19 +26,6 @@ class SignUp extends Component{
         } 
     }
 
-    
-    // componentDidMount(){
-    //     fetch('../states.json')
-    //     .then(resp => resp.json())
-    //     .then(statesArray => {
-    //         console.log(statesArray)
-    //         this.setState({
-    //             states : statesArray
-    //         })
-    //     })
-
-    // }
-
     handleForm=(e)=>{
         this.setState({
        newUser:  {...this.state.newUser, [e.target.name] : e.target.value}
@@ -50,7 +33,7 @@ class SignUp extends Component{
     }
 
     handleBirthday=(e)=>{
-        const birthday = e.target.value //date
+        const birthday = e.target.value 
           var diff_ms = Date.now() - Date.parse(birthday)
           var age_dt = new Date(diff_ms);
           const age = Math.abs(age_dt.getUTCFullYear() - 1970);
@@ -78,8 +61,6 @@ class SignUp extends Component{
                 <Form className='sign-up-form' style={{padding: '5em', width: '30em'}} onSubmit={(e)=>{
                     e.preventDefault()
                     this.props.handleSignUp(this.state.newUser)
-                    // return <Redirect to='/profiles/current-user' />
-                    // return <Link to='/profiles/current-user' />
                     }
                 }>
                     <Form.Group widths='equal'>
@@ -101,20 +82,8 @@ class SignUp extends Component{
                         onChange={this.handleForm}
                     />
 
-                    
-                    
-                    
                     </Form.Group>
-                    {/* <h3>Birthday</h3>
-                        <div className="ui calendar" id="example1">
-                        <div className="ui input left icon">
-                            <input type="date" name='birthday' placeholder="Birthdate" onChange={(e)=>{
-                                this.handleBirthday(e)
-                                }
-                            }/>
-                        </div>
-                        </div> */}
-
+                    
                         <Form.Input
                             type='date'
                             control={Input}
@@ -167,10 +136,6 @@ class SignUp extends Component{
                         control={Input}
                         label='Email'
                         placeholder='janedoe@demo.com'
-                        // error={{
-                        //     content: 'Please enter a valid email address',
-                        //     pointing: 'below',
-                        // }}
                         name='email'
                         onChange={this.handleForm}
                     />

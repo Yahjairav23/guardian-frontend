@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { List, Image, Grid, Segment, Divider} from 'semantic-ui-react'
+import { List, Image, Grid} from 'semantic-ui-react'
 
 class UserProfile extends React.Component {
     
@@ -25,7 +25,6 @@ class UserProfile extends React.Component {
                  padding: '5em'
                  
              }} >
-                        {/* <div className='drop-shadow'> */}
                         <div className='profile-card'>
                             <Grid>
                                 <Grid.Column width={5} textAlign='center' padded className='card-border'>

@@ -11,7 +11,6 @@ class Navbar extends Component{
         }
     }
 
-    // state = {}
     
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name })

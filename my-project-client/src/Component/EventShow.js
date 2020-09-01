@@ -7,11 +7,9 @@ const Event=(props)=>{
     const eventDate = new Date(props.event.event_date)
 
     const group = props.groups.find(group => {
-      
-    //   return  group.id === props.event._def.extendedProps.group_id
       return  group.id === props.event.group_id
-
     })
+
     return(
         
         

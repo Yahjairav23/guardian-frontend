@@ -5,8 +5,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import Event from '../Component/Event.js'
 import { Modal, Grid, List } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-// const USEREVENTS = 'http://localhost:3000/user_events'
-// import { Button, Popup } from 'semantic-ui-react'
 
 class EventsContainer extends Component{
     
@@ -15,31 +13,18 @@ class EventsContainer extends Component{
         this.state={
             event: null,
             showEvent: false, 
-            // userEvents: []
         }
     } 
-
-    // componentDidMount(){
-    
-    //     this.setState({
-    //         userEvents: this.props.user.events
-    //     })
-    // }
-
- 
 
     handleClose = () => {
         this.closeModal()
     }
 
     handleClick=(e)=>{
-        // eventsArr.find
         this.setState({
             event : e.event,
             showEvent: !this.state.showEvent
-        })
-        // this.props.updateUserEvents(this.state.userEvents
-    
+        })    
     }
     
 //for Modal

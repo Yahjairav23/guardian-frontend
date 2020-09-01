@@ -52,10 +52,7 @@ class GroupShow extends Component {
         
         const member =  user_groups.map(ug => {
                 return <p key={ug.member.id} className='disc-ptag'>{ug.member.name}</p>
-            })
-        
-        // const existingUG = user_groups.filter(ug => ug.member.id === this.props.user.id)
-        
+            })        
             
         return(
             <>
@@ -77,16 +74,13 @@ class GroupShow extends Component {
                         <div className='group-show-title'>{this.props.group.name}</div>
                         <div className='group-show-location'>{this.props.group.city}, {this.props.group.state}</div>
 
-                        {/* <h4 className='disc-header about'>About</h4> */}
                         <p className='disc-ptag about' >{this.props.group.about}</p>
 
-                        {/* <br></br> */}
                         <div className='group-join'>
                             {this.props.user ?
                              user_groups.filter(ug => ug.member.id === this.props.user.id).length > 0 ?
                                     <Button 
                                     className='leave-btn'
-                                    // style={{'background-color': 'rgb(4, 208, 208)'}}
                                     onClick={() => {
                                         this.handleDeleteState()
                                     }}>
@@ -95,7 +89,6 @@ class GroupShow extends Component {
                                         :
                                     <Button 
                                     className='join-btn'
-                                    // style={{'background-color': 'rgb(4, 208, 208)'}}
                                     onClick={() => {
                                         this.handleState()
                                     }}>
@@ -108,7 +101,6 @@ class GroupShow extends Component {
                     </Grid.Column>
 
                     <Grid.Column>
-                        {/* <br></br> */}
                         <h4 className='disc-header'>Founded By:</h4>
                         <p className='disc-ptag'>{this.props.founder.name}</p>
                         <h4 className='disc-header'>Founded On:</h4>

@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import { Container, Header, Button, Modal } from 'semantic-ui-react'
 import About from './Component/About.js'
-import {logo} from './logo.svg'
-import { withRouter } from 'react-router-dom'
 
 class LandingPage extends Component{
 
@@ -30,10 +28,8 @@ render(){
     return(
       <>
         <div className='landing-page' ></div>
-      {/* <div style={{'text-align': 'center', 'vertical-align': 'middle'}}> */}
         <Container text position='center' style={{'text-align': 'center'}}>
   
-        {/* <img src='https://i.imgur.com/oIajXtc.png' /> */}
         <Header
           position='center'
           as='h1'
@@ -58,7 +54,6 @@ render(){
             padding: '1em',
             fontSize:  '1.7em',
             fontWeight: 'normal',
-            // marginTop:  '1em',
             color: 'white',
             letterSpacing: '5px'
           }}
@@ -79,7 +74,6 @@ render(){
           }
     
       </Container>
-      {/* </div> */}
       </>
     )
   }
